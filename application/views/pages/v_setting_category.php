@@ -51,7 +51,7 @@
                 <!-- Default box -->
             <div class="<?php echo ($this->config->item('card_header_side')); ?>">
                 <div class="card-header">
-                    <h3 class="card-title">จัดการข้อมูลประเภทสินค้า</h3>
+                    <h3 class="card-title">รายการประเภทสินค้า</h3>
                 </div>
                 <div class="card-body">
                     <!-- body -->

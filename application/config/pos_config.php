@@ -12,7 +12,7 @@ $config['view_folder'] = 'pages/';
 // end set path zone
 
 //set card color
-$config['card_header'] = 'card card-primary';
+$config['card_header'] = 'card card-info';
 $config['card_header_side'] = 'card card-info';
 $config['btn_cancel'] = 'btn btn-danger';
 $config['btn_save'] = 'btn btn-success';
