@@ -18,7 +18,7 @@
           <!-- Add icons to the links using the .nav-icon class
 			   with font-awesome or any other icon font library -->
 			<li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo site_url('/Dashboard'); ?>" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -55,42 +55,47 @@
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>ของมาส่ง</p>
+                  <p>จัดการคลังสินค้า</p>
                 </a>
               </li>
             </ul>
           </li>
 
-		  <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
               <p>
-                ตั้งค่าข้อมูลพื้นฐาน
-                <i class="right fas fa-angle-left"></i>
+              ตั้งค่า
               </p>
+                <i class="right fas fa-angle-left"></i>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../index.html" class="nav-link">
+                <a href="<?php echo site_url('/Setting/category'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>ประเภทสินค้า</p>
                 </a>
               </li>
+
               <li class="nav-item">
-                <a href="../../index2.html" class="nav-link">
+                <a href="<?php echo site_url('/Setting/unit'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>หน่วยนับ</p>
                 </a>
               </li>
+
               <li class="nav-item">
-                <a href="../../index3.html" class="nav-link">
+                <a href="<?php echo site_url('/Setting/brand'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>แบรนด์</p>
                 </a>
               </li>
+
             </ul>
           </li>
+
         </ul>
+        <!-- /.ul -->
       </nav>
       <!-- /.sidebar-menu -->
     </div>
