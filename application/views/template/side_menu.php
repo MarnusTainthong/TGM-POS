@@ -6,7 +6,7 @@
            alt="AdminLTE Logo"
            class="brand-image elevation-3"
            >
-      <span class="brand-text font-weight-light">ระบบบริหารจัดการร้าน</span>
+      <span class="brand-text font-weight-light"><?php echo ($this->config->item('sys_name_th')); ?></span>
     </a>
 
     <!-- Sidebar -->

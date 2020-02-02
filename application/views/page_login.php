@@ -4,7 +4,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <b>Retail Store Management System</b>
+    <b><?php echo ($this->config->item('sys_name_en')); ?></b>
   </div>
   <!-- /.login-logo -->
   <div class="card">
