@@ -6,7 +6,14 @@ class Pos_setting extends Login_Controller {
 
 	public function index()
 	{
-		$this->output('pos/v_setting_catefory');
-	}
+        // index
+    }
+    
+    public function set_category()
+    {
+        $this->output('pages/v_setting_category');
+        
+    }
+    // go to page setting_category
 	
 }
