@@ -22,27 +22,24 @@
                     <div class="card-header">
                         <h3 class="card-title">จัดการข้อมูลประเภทสินค้า</h3>
                     </div>
-                    <div class="card-body">
-                        <form class="form-horizontal">
+                    <form class="form-horizontal" id="actionCategoryForm">
+                        <div class="card-body">
+                            <input type="hidden" class="form-control" id="category_id" disabled>
                             <div class="form-group row">
-                                <label for="inputCategory"
-                                    class="col-sm-4 col-form-label">ชื่อประเภทสินค้าภาษาไทย</label>
+                                <label for="category_name_input" class="col-sm-4 col-form-label">ชื่อประเภทสินค้าภาษาไทย</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="inputEmail3"
-                                        placeholder="ใส่ชื่อประเภทสินค้า">
+                                    <input type="text" class="form-control" name="category_name_input" id="category_name_input" placeholder="ใส่ชื่อประเภทสินค้า" required>
                                 </div>
                             </div>
-                        </form>
-                        <!-- /.form -->
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="button"
-                            class="<?php echo($this->config->item('btn_cancel'));?>"><?php echo($this->config->item('txt_cancel'));?></button>
-                        <button type="submit"
-                            class="<?php echo($this->config->item('btn_save'));?> float-right"><?php echo($this->config->item('txt_save'));?></button>
-                    </div>
-                    <!-- /.card-footer -->
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="button" class="<?php echo ($this->config->item('btn_cancel')); ?>" onclick="reset_form('actionCategoryForm')"><?php echo ($this->config->item('txt_cancel')); ?></button>
+                            <button type="submit" class="<?php echo ($this->config->item('btn_save')); ?> float-right submit" onclick="add_category()"><?php echo ($this->config->item('txt_save')); ?></button>
+                        </div>
+                        <!-- /.card-footer -->
+                    </form>
+                    <!-- /.form -->
                 </div>
                 <!-- /.card -->
             </div>
@@ -57,8 +54,7 @@
                     <div class="card-body">
                         <!-- body -->
 
-                        <table id="category_table" class="table table-bordered table-striped dataTable" width="100%"
-                            cellspacing="0">
+                        <table id="category_table" class="table table-bordered table-striped dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th width="10%">ลำดับ</th>
@@ -70,7 +66,6 @@
                             </tbody>
                         </table>
                         <!-- table -->
-
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -86,10 +81,24 @@
 <!-- /.content-wrapper -->
 
 <script>
-
-
-$(document).ready( function () {
+$(document).ready(function() {
     $('#category_table').DataTable();
-} );
+});
 
+function add_category() {
+
+    var cate_name = $("#category_name_input").val();
+
+    jQuery.validator.setDefaults({
+        debug: true,
+        success: "valid"
+    });
+
+    $("#actionCategoryForm").validate({
+        rules: {
+            category_name_input: "required"
+        }
+    });
+
+}
 </script>

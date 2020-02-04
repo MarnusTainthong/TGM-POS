@@ -9,6 +9,10 @@
 <script src="<?php echo base_url().$this->config->item('template_path').'plugins/sweetalert2/sweetalert2.min.js'?>"></script>
 <!-- Datatables -->
 <script type="text/javascript" src="<?php echo base_url().$this->config->item('template_path').'plugins/datatables/datatables.min.js'?>"></script>
+<!-- validate -->
+<script type="text/javascript" src="<?php echo base_url().$this->config->item('template_path').'plugins/jquery-validation/jquery.validate.min.js'?>"></script>
+<script type="text/javascript" src="<?php echo base_url().$this->config->item('template_path').'plugins/jquery-validation/localization/messages_th.min.js'?>"></script>
+
 
 </body>
 </html>

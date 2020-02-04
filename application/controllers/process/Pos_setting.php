@@ -15,5 +15,10 @@ class Pos_setting extends Login_Controller {
         
     }
     // go to page setting_category
+
+    public function ajax_add_category()
+    {
+        # code...
+    }
 	
 }
