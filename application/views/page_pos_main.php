@@ -5,6 +5,23 @@
 function reset_form(form) {
     document.getElementById(form).reset();
 }
+
+function messege_show(state) {
+    if (state["action_status"] == 1) {
+        Swal.fire('บันทึกข้อมูลสำเร็จ','บันทึกข้อมูลเข้าสู่ระบบเรียบร้อยแล้ว','success')
+    }else if(state["action_status"] == 2){
+        Swal.fire('บันทึกข้อมูลไม่สำเร็จ','การบันทึกพบข้อผิดพลาดไม่สามารถบันทึกได้','warning')
+    }else if(state["action_status"] == 3){
+        Swal.fire('บันทึกข้อมูลสำเร็จ','ระบบได้บันทึกข้อมูลที่แก้ไขเรียบร้อยแล้ว','success')
+    }else if(state["action_status"] == 4){
+        Swal.fire('บันทึกข้อมูลไม่สำเร็จ','การแก้ไขพบข้อผิดพลาดไม่สามารถบันทึกได้','warning')
+    }
+    // 1 = บันทึกสำเร็จ
+    // 2 = บันทึกไม่เสร็จ
+    // 3 = แก้ไขสำเร็จ
+    // 4 = แก้ไขไม่สำเร็จ
+    
+}
 </script>
 
 <style>

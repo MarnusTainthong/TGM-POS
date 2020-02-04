@@ -22,7 +22,7 @@
                     <div class="card-header">
                         <h3 class="card-title">จัดการข้อมูลประเภทสินค้า</h3>
                     </div>
-                    <form class="form-horizontal" id="actionCategoryForm">
+                    <form class="form-horizontal" id="actionCategoryForm" method="post">
                         <div class="card-body">
                             <input type="hidden" class="form-control" id="category_id" disabled>
                             <div class="form-group row">
@@ -35,7 +35,7 @@
                         <!-- /.card-body -->
                         <div class="card-footer">
                             <button type="button" class="<?php echo ($this->config->item('btn_cancel')); ?>" onclick="reset_form('actionCategoryForm')"><?php echo ($this->config->item('txt_cancel')); ?></button>
-                            <button type="submit" class="<?php echo ($this->config->item('btn_save')); ?> float-right submit" onclick="add_category()"><?php echo ($this->config->item('txt_save')); ?></button>
+                            <button type="button" class="<?php echo ($this->config->item('btn_save')); ?> float-right submit" onclick="add_category()"><?php echo ($this->config->item('txt_save')); ?></button>
                         </div>
                         <!-- /.card-footer -->
                     </form>
@@ -82,23 +82,65 @@
 
 <script>
 $(document).ready(function() {
-    $('#category_table').DataTable();
+    // $('#category_table').DataTable();
+    datatable_show();
+
 });
+
+
+function datatable_show() {
+    
+    $("#category_table").dataTable({
+        processing: true,
+        bDestroy: true,
+        ajax:{
+            type: "POST",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/get_category_show/"; ?>",
+            dataSrc : function(data){
+                var return_data = new Array();
+                $(data).each(function(seq, data ) {
+				    return_data.push({
+                       "ctg_seq" : data.ctg_seq,
+                       "ctg_name" : data.ctg_name,
+                       "ctg_action" : data.ctg_action
+                   });
+                });
+                console.log(return_data);             
+                return return_data;
+            }//end dataSrc
+    }, //end ajax
+    "columns" :[
+        {"data": "ctg_seq"},
+        {"data": "ctg_name"},
+        {"data": "ctg_action"}
+    ]
+    });
+
+}
 
 function add_category() {
 
-    var cate_name = $("#category_name_input").val();
+    var frm_id = category_name_input;
 
-    jQuery.validator.setDefaults({
-        debug: true,
-        success: "valid"
-    });
+    if ($(frm_id).valid()) {
+        var category_name = $("#category_name_input").val();
+        var category_id = $("#category_id").val();
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/ajax_add_category/"; ?>",
+            data: {
+                category_name: category_name,
+                category_id: category_id
+            },
+            dataType: "json",
+            success: function(data) {
+               console.log(data);
+               messege_show(data);
+               datatable_show(); //regresh datatable
+            } // End success
+        }); // End ajax
 
-    $("#actionCategoryForm").validate({
-        rules: {
-            category_name_input: "required"
-        }
-    });
+    }
 
 }
 </script>
