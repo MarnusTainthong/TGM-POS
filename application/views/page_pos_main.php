@@ -1,10 +1,14 @@
 <script>
 
-// input: form idate
-// des: reset form
 function reset_form(form) {
     document.getElementById(form).reset();
+    // set_form_ready(form)
+
+    $(":input.form-control").removeClass("error valid");
+    $("label.error").remove();
+
 }
+// reset form
 
 function messege_show(state) {
     if (state["action_status"] == 1) {

@@ -16,7 +16,8 @@
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <div class="col-md-4 col-sm-12">
+            <!-- <div class="col-md-3"></div> -->
+            <div class="col-md-6 col-sm-12 col-lg-3">
                 <!-- Default box -->
                 <div class="<?php echo ($this->config->item('card_header')); ?>">
                     <div class="card-header">
@@ -26,8 +27,8 @@
                         <div class="card-body">
                             <input type="hidden" class="form-control" id="category_id" disabled>
                             <div class="form-group row">
-                                <label for="category_name_input" class="col-sm-4 col-form-label">ชื่อประเภทสินค้าภาษาไทย</label>
-                                <div class="col-sm-8">
+                                <label for="category_name_input" class="col-sm-5 col-form-label">ชื่อประเภทสินค้าภาษาไทย</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" name="category_name_input" id="category_name_input" placeholder="ใส่ชื่อประเภทสินค้า" required>
                                 </div>
                             </div>
@@ -43,9 +44,9 @@
                 </div>
                 <!-- /.card -->
             </div>
-            <!-- md6 sm12 -->
+            <!-- ls3 md6 sm12 -->
 
-            <div class="col-md-5 col-sm-12">
+            <div class="col-md-12 col-sm-12 col-lg-5">
                 <!-- Default box -->
                 <div class="<?php echo ($this->config->item('card_header_side')); ?>">
                     <div class="card-header">
@@ -82,13 +83,12 @@
 
 <script>
 $(document).ready(function() {
-    // $('#category_table').DataTable();
     datatable_show();
-
 });
 
 
 function datatable_show() {
+    reset_form('actionCategoryForm');
     
     $("#category_table").dataTable({
         processing: true,
@@ -108,12 +108,12 @@ function datatable_show() {
                 console.log(return_data);             
                 return return_data;
             }//end dataSrc
-    }, //end ajax
-    "columns" :[
-        {"data": "ctg_seq"},
-        {"data": "ctg_name"},
-        {"data": "ctg_action"}
-    ]
+        }, //end ajax
+        columns :[
+            {"data": "ctg_seq"},
+            {"data": "ctg_name"},
+            {"data": "ctg_action"}
+        ]
     });
 
 }

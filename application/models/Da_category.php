@@ -10,9 +10,9 @@ class Da_category extends Main_model {
         parent::__construct();
     }
 
-    public function insert_category($category_name)
+    public function insert_category()
     {
-        $sql = "INSERT INTO `category` (`category_name`, `category_status`) VALUES ('?', 1)";
+        $sql = "INSERT INTO `category` (`category_name`, `category_status`) VALUES (?, 1)";
         $this->db->query($sql,array($this->category_name));
     }
     // insert category
