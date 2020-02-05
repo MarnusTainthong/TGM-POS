@@ -89,30 +89,35 @@ $(document).ready(function() {
 
 function datatable_show() {
     reset_form('actionCategoryForm');
-    
+
     $("#category_table").dataTable({
         processing: true,
         bDestroy: true,
-        ajax:{
+        ajax: {
             type: "POST",
             url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/get_category_show/"; ?>",
-            dataSrc : function(data){
+            dataSrc: function(data) {
                 var return_data = new Array();
-                $(data).each(function(seq, data ) {
-				    return_data.push({
-                       "ctg_seq" : data.ctg_seq,
-                       "ctg_name" : data.ctg_name,
-                       "ctg_action" : data.ctg_action
-                   });
+                $(data).each(function(seq, data) {
+                    return_data.push({
+                        "ctg_seq": data.ctg_seq,
+                        "ctg_name": data.ctg_name,
+                        "ctg_action": data.ctg_action
+                    });
                 });
-                console.log(return_data);             
+                // console.log(return_data);
                 return return_data;
-            }//end dataSrc
+            } //end dataSrc
         }, //end ajax
-        columns :[
-            {"data": "ctg_seq"},
-            {"data": "ctg_name"},
-            {"data": "ctg_action"}
+        columns: [{
+                data: "ctg_seq"
+            },
+            {
+                data: "ctg_name"
+            },
+            {
+                data: "ctg_action"
+            }
         ]
     });
 
@@ -134,13 +139,31 @@ function add_category() {
             },
             dataType: "json",
             success: function(data) {
-               console.log(data);
-               messege_show(data);
-               datatable_show(); //regresh datatable
+                // console.log(data);
+                messege_show(data);
+                datatable_show(); //refresh datatable
             } // End success
         }); // End ajax
-
     }
+}
+
+function edit_category(category_id) {
+    $.ajax({
+        type: "POST",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/get_category_by_id/"; ?>",
+        data: {category_id: category_id},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data);
+            $("#category_id").val(data["category_id"]);
+            $("#category_name_input").val(data["category_name"]);
+        }
+    });
+}
+
+function delete_category(category_id) {
+
+    
 
 }
 </script>

@@ -16,4 +16,13 @@ class Da_category extends Main_model {
         $this->db->query($sql,array($this->category_name));
     }
     // insert category
+
+    public function edit_category()
+    {
+        $sql = "UPDATE category 
+                SET category_name = ? 
+                WHERE category.category_id = ?";
+        $this->db->query($sql,array($this->category_name,$this->category_id));
+    }
+    // edit category
 }
