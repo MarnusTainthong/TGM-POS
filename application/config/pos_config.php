@@ -24,6 +24,8 @@ $config['btn_delete'] = 'btn btn-danger';
 // set text
 $config['txt_cancel'] = 'ยกเลิก';
 $config['txt_save'] = 'บันทึก';
+$config['swal_cf_txt'] = 'ยืนยัน'; // ปุ่มยืนยัน sweetalert
+$config['swal_cc_txt'] = 'ยกเลิก'; // ปุ่มยกเลิก sweeralert
 
 // set icon
 $config['icon_edit'] = 'fas fa-edit';

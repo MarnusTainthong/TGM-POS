@@ -25,4 +25,13 @@ class Da_category extends Main_model {
         $this->db->query($sql,array($this->category_name,$this->category_id));
     }
     // edit category
+    
+    public function delete_category()
+    {
+        $sql = "UPDATE category 
+                SET category_status	 = 0 
+                WHERE category.category_id = ?";
+        $this->db->query($sql,array($this->category_id));
+    }
+    // update status to not use
 }

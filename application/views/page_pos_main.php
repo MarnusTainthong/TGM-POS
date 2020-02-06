@@ -1,5 +1,4 @@
 <script>
-
 $(document).ready(function() {
     // $('[data-toggle="tooltip"]').tooltip();
 });
@@ -25,10 +24,10 @@ function messege_show(state) {
     } else if (state["action_status"] == 4) {
         Swal.fire('บันทึกข้อมูลไม่สำเร็จ', 'การแก้ไขพบข้อผิดพลาดไม่สามารถบันทึกได้', 'warning')
     }
-    // 1 = บันทึกสำเร็จ
-    // 2 = บันทึกไม่เสร็จ
-    // 3 = แก้ไขสำเร็จ
-    // 4 = แก้ไขไม่สำเร็จ
+    // 1 = บันทึก,ลบ สำเร็จ
+    // 2 = บันทึก,ลบ ไม่เสร็จ
+    // 3 = แก้ไข สำเร็จ
+    // 4 = แก้ไข ไม่สำเร็จ
 
 }
 </script>
@@ -64,20 +63,23 @@ label.error {
     display: flex;
     justify-content: center;
 }
+
 /* set elements column center */
 
 /* set table style */
-table > thead {
+table>thead {
     text-align: center;
 }
 
-tbody > tr > td:last-child {
+tbody>tr>td:last-child {
     text-align: center;
-    color:#ffffff;
+    color: #ffffff;
 }
 
-.btn-warning, .btn-warning:hover{
-    color:#fff;
+.btn-warning,
+.btn-warning:hover {
+    color: #fff;
 }
+
 /* btn edit style */
 </style>

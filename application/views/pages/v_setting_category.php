@@ -93,6 +93,7 @@ function datatable_show() {
     $("#category_table").dataTable({
         processing: true,
         bDestroy: true,
+        language: {url: "<?php echo base_url().$this->config->item('template_path').'plugins/datatables/languages/Thai.json'?>"},
         ajax: {
             type: "POST",
             url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/get_category_show/"; ?>",
@@ -164,6 +165,31 @@ function edit_category(category_id) {
 function delete_category(category_id) {
 
     
+swal.fire({
+    title: 'คุณต้องการลบข้อมูลใช่หรือไม่ ?',
+    text: "หากลบแล้วข้อมูลจะไม่สามารถกู้คืนได้อีก !",
+    type: 'warning',
+    confirmButtonText: '<?php echo $this->config->item('swal_cf_txt');?>',
+    cancelButtonText: '<?php echo $this->config->item('swal_cc_txt');?>',
+    showCancelButton: true,
+    reverseButtons: true,
+    confirmButtonColor: '#dc3545'
+}).then((result) => {
+    if (result.value) {
+        $.ajax({
+            type : "POST",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/ajax_del_category/"; ?>",
+            data : {category_id:category_id},
+            dataType : "json",
+            success : function(data){
+                datatable_show();
+                messege_show(data);
+            }
+        });//end ajax
+    }
+});
+
+
 
 }
 </script>
