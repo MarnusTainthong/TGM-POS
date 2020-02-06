@@ -1,7 +1,17 @@
 <script>
 $(document).ready(function() {
     // $('[data-toggle="tooltip"]').tooltip();
+    setPageActive();
+    setSideMenu();
 });
+
+function setPageActive() {
+    //
+}
+
+function setSideMenu() {
+    //
+}
 
 function reset_form(form) {
     document.getElementById(form).reset();
@@ -71,10 +81,10 @@ table>thead {
     text-align: center;
 }
 
-tbody>tr>td:last-child {
+/* tbody>tr>td:last-child {
     text-align: center;
     color: #ffffff;
-}
+} */
 
 .btn-warning,
 .btn-warning:hover {

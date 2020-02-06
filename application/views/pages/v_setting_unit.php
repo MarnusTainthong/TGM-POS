@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>ตั้งค่าประเภทสินค้า</h1>
+                    <h1>ตั้งค่าหน่วยนับ</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -21,22 +21,28 @@
                 <!-- Default box -->
                 <div class="<?php echo ($this->config->item('card_header')); ?>">
                     <div class="card-header">
-                        <h3 class="card-title">จัดการข้อมูลประเภทสินค้า</h3>
+                        <h3 class="card-title">จัดการข้อมูลหน่วยนับ</h3>
                     </div>
-                    <form class="form-horizontal" id="actionCategoryForm" method="post">
+                    <form class="form-horizontal" id="actionUnitForm" method="post">
                         <div class="card-body">
-                            <input type="hidden" class="form-control" id="category_id" disabled>
+                            <input type="hidden" class="form-control" id="unit_id" disabled>
                             <div class="form-group row">
-                                <label for="category_name_input" class="col-sm-5 col-form-label">ชื่อประเภทสินค้าภาษาไทย</label>
+                                <label for="unit_name_th_input" class="col-sm-5 col-form-label">ชื่อหน่วยนับภาษาไทย</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="category_name_input" id="category_name_input" placeholder="ใส่ชื่อประเภทสินค้า" required>
+                                    <input type="text" class="form-control" name="unit_name_th_input" id="unit_name_th_input" placeholder="ใส่ชื่อหน่วยนับภาษาไทย" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="unit_name_en_input" class="col-sm-5 col-form-label">ชื่อหน่วยนับภาษาอังกฤษ</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="unit_name_en_input" id="unit_name_en_input" placeholder="ใส่หน่วยนับภาษาอังกฤษ" required>
                                 </div>
                             </div>
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <button type="button" class="<?php echo ($this->config->item('btn_cancel')); ?>" onclick="reset_form('actionCategoryForm')"><?php echo ($this->config->item('txt_cancel')); ?></button>
-                            <button type="button" class="<?php echo ($this->config->item('btn_save')); ?> float-right submit" onclick="add_category()"><?php echo ($this->config->item('txt_save')); ?></button>
+                            <button type="button" class="<?php echo ($this->config->item('btn_cancel')); ?>" onclick="reset_form('actionUnitForm')"><?php echo ($this->config->item('txt_cancel')); ?></button>
+                            <button type="button" class="<?php echo ($this->config->item('btn_save')); ?> float-right submit" onclick="add_unit()"><?php echo ($this->config->item('txt_save')); ?></button>
                         </div>
                         <!-- /.card-footer -->
                     </form>
@@ -50,16 +56,17 @@
                 <!-- Default box -->
                 <div class="<?php echo ($this->config->item('card_header_side')); ?>">
                     <div class="card-header">
-                        <h3 class="card-title">รายการประเภทสินค้า</h3>
+                        <h3 class="card-title">รายการหน่วยนับ</h3>
                     </div>
                     <div class="card-body">
                         <!-- body -->
 
-                        <table id="category_table" class="table table-bordered table-striped dataTable" width="100%" cellspacing="0">
+                        <table id="unit_table" class="table table-bordered table-striped dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th width="10%">ลำดับ</th>
-                                    <th>ชื่อประเภทสินค้า</th>
+                                    <th>ชื่อภาษาไทย</th>
+                                    <th>ชื่อภาษาอังกฤษ</th>
                                     <th width="20%">ดำเนินการ</th>
                                 </tr>
                             </thead>
@@ -88,53 +95,59 @@ $(document).ready(function() {
 
 
 function datatable_show() {
-    reset_form('actionCategoryForm');
+    reset_form('actionUnitForm');
 
-    $("#category_table").dataTable({
+    $("#unit_table").dataTable({
         processing: true,
         bDestroy: true,
         language: {url: "<?php echo base_url().$this->config->item('template_path').'plugins/datatables/languages/Thai.json'?>"},
         ajax: {
             type: "POST",
-            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/get_category_show/"; ?>",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/get_unit_show/"; ?>",
             dataSrc: function(data) {
                 var return_data = new Array();
                 $(data).each(function(seq, data) {
                     return_data.push({
-                        "ctg_seq": data.ctg_seq,
-                        "ctg_name": data.ctg_name,
-                        "ctg_action": data.ctg_action
+                        "unt_seq": data.unt_seq,
+                        "unt_name_th": data.unt_name_th,
+                        "unt_name_en": data.unt_name_en,
+                        "unt_action": data.unt_action
                     });
                 });
-                // console.log(return_data);
+                console.log(return_data);
                 return return_data;
             } //end dataSrc
         }, //end ajax
         columns: [
-            {data: "ctg_seq"},
-            {data: "ctg_name"},
-            {data: "ctg_action"}
+            {data: "unt_seq"},
+            {data: "unt_name_th"},
+            {data: "unt_name_en"},
+            {data: "unt_action"}
         ],
         columnDefs: [
-            { orderable: false, targets: [-1,-2] }
+            { orderable: false, targets: [-1,-2,-3] }
         ]
     });
 
 }
 
-function add_category() {
+function add_unit() {
 
-    var frm_id = actionCategoryForm;
+    var frm_id = actionUnitForm;
 
     if ($(frm_id).valid()) {
-        var category_name = $("#category_name_input").val();
-        var category_id = $("#category_id").val();
+
+        var unit_id = $("#unit_id").val();
+        var unit_name_th = $("#unit_name_th_input").val();
+        var unit_name_en = $("#unit_name_en_input").val();
+
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/ajax_add_category/"; ?>",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/ajax_add_unit/"; ?>",
             data: {
-                category_name: category_name,
-                category_id: category_id
+                unit_id: unit_id,
+                unit_name_th: unit_name_th,
+                unit_name_en: unit_name_en
             },
             dataType: "json",
             success: function(data) {
@@ -146,21 +159,22 @@ function add_category() {
     }
 }
 
-function edit_category(category_id) {
+function edit_unit(unit_id) {
     $.ajax({
         type: "POST",
-        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/get_category_by_id/"; ?>",
-        data: {category_id: category_id},
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/get_unit_by_id/"; ?>",
+        data: {unit_id: unit_id},
         dataType: "json",
         success: function(data) {
             // console.log(data);
-            $("#category_id").val(data["category_id"]);
-            $("#category_name_input").val(data["category_name"]);
+            $("#unit_id").val(data["unit_id"]);
+            $("#unit_name_th_input").val(data["unit_name_th"]);
+            $("#unit_name_en_input").val(data["unit_name_en"]);
         }
     });
 }
 
-function delete_category(category_id) {
+function delete_unit(unit_id) {
 
     
 swal.fire({
@@ -176,8 +190,8 @@ swal.fire({
     if (result.value) {
         $.ajax({
             type : "POST",
-            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/ajax_del_category/"; ?>",
-            data : {category_id:category_id},
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/ajax_del_unit/"; ?>",
+            data : {unit_id:unit_id},
             dataType : "json",
             success : function(data){
                 datatable_show();

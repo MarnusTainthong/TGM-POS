@@ -78,7 +78,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="<?php echo site_url('/Setting/unit'); ?>" class="nav-link">
+                <a href="<?php echo site_url().$this->config->item('ctrl_path').'/Pos_setting/set_unit'; ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>หน่วยนับ</p>
                 </a>

@@ -3,6 +3,7 @@
 //set name
 $config['sys_name_th'] = 'ระบบบริหารจัดการร้าน';
 $config['sys_name_en'] = 'Retail Store Management System';
+$config['tab_title'] = 'ระบบบริหารจัดการร้าน';
 
 // set path zone
 $config['template_path'] = 'assets/';	
