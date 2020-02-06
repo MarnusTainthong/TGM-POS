@@ -79,8 +79,8 @@ class Pos_setting extends Login_Controller
                 'ctg_seq' => '<center>' . $i++ . '</center>',
                 'ctg_id' => $row->category_id,
                 'ctg_name' => $row->category_name,
-                'ctg_action' => '<center><button type="button" class="'.$this->config->item('btn_edit').'" onclick="edit_category('.$row->category_id.')" '.$this->config->item('tooltip_edit').'><i class="'.$this->config->item('icon_edit').'"></i></button>
-                                <button type="button" class="'.$this->config->item('btn_delete').'" onclick="delete_category('.$row->category_id.')" '.$this->config->item('tooltip_delete').'><i class="'.$this->config->item('icon_delete').'"></i></button></center>',
+                'ctg_action' => '<div class="'.$this->config->item('td_action').'"><button type="button" class="'.$this->config->item('btn_edit').'" onclick="edit_category('.$row->category_id.')" '.$this->config->item('tooltip_edit').'><i class="'.$this->config->item('icon_edit').'"></i></button>
+                                <button type="button" class="'.$this->config->item('btn_delete').'" onclick="delete_category('.$row->category_id.')" '.$this->config->item('tooltip_delete').'><i class="'.$this->config->item('icon_delete').'"></i></button></div>',
             );
             array_push($all_data, $data);
         }
@@ -134,8 +134,8 @@ class Pos_setting extends Login_Controller
                 'unt_id' => $row->unit_id,
                 'unt_name_th' => $row->unit_name_th,
                 'unt_name_en' => $row->unit_name_en,
-                'unt_action' => '<center><button type="button" class="'.$this->config->item('btn_edit').'" onclick="edit_unit('.$row->unit_id.')" '.$this->config->item('tooltip_edit').'><i class="'.$this->config->item('icon_edit').'"></i></button>
-                                <button type="button" class="'.$this->config->item('btn_delete').'" onclick="delete_unit('.$row->unit_id.')" '.$this->config->item('tooltip_delete').'><i class="'.$this->config->item('icon_delete').'"></i></button></center>',
+                'unt_action' => '<div class="'.$this->config->item('td_action').'"><button type="button" class="'.$this->config->item('btn_edit').'" onclick="edit_unit('.$row->unit_id.')" '.$this->config->item('tooltip_edit').'><i class="'.$this->config->item('icon_edit').'"></i></button>
+                                <button type="button" class="'.$this->config->item('btn_delete').'" onclick="delete_unit('.$row->unit_id.')" '.$this->config->item('tooltip_delete').'><i class="'.$this->config->item('icon_delete').'"></i></button></div>',
             );
             array_push($all_data, $data);
         }

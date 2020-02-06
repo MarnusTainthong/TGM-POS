@@ -81,10 +81,11 @@ table>thead {
     text-align: center;
 }
 
-/* tbody>tr>td:last-child {
+.td_action {
     text-align: center;
     color: #ffffff;
-} */
+    display: block;
+}
 
 .btn-warning,
 .btn-warning:hover {

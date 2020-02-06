@@ -36,4 +36,7 @@ $config['icon_delete'] = 'fas fa-trash';
 $config['tooltip_edit'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="คลิกเพื่อแก้ไขข้อมูล"';
 $config['tooltip_delete'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="คลิกเพื่อลบข้อมูล"';
 
+// set table
+$config['td_action'] = 'td_action';
+
 ?>
