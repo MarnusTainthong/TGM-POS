@@ -6,8 +6,14 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <h1>ตั้งค่าหน่วยนับ</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">ตั้งค่า</a></li>
+                        <li class="breadcrumb-item active">หน่วยนับ</li>
+                    </ol>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -27,13 +33,13 @@
                         <div class="card-body">
                             <input type="hidden" class="form-control" id="unit_id" disabled>
                             <div class="form-group row">
-                                <label for="unit_name_th_input" class="col-sm-5 col-form-label">ชื่อหน่วยนับภาษาไทย</label>
+                                <label for="unit_name_th_input" class="col-sm-5 col-form-label">ชื่อหน่วยนับภาษาไทย <?php echo($this->config->item('formMark')); ?></label>
                                 <div class="col-sm-7">
                                     <input type="text" class="form-control" name="unit_name_th_input" id="unit_name_th_input" placeholder="ใส่ชื่อหน่วยนับภาษาไทย" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="unit_name_en_input" class="col-sm-5 col-form-label">ชื่อหน่วยนับภาษาอังกฤษ</label>
+                                <label for="unit_name_en_input" class="col-sm-5 col-form-label">ชื่อหน่วยนับภาษาอังกฤษ <?php echo($this->config->item('formMark')); ?></label>
                                 <div class="col-sm-7">
                                     <input type="text" class="form-control" name="unit_name_en_input" id="unit_name_en_input" placeholder="ใส่หน่วยนับภาษาอังกฤษ" required>
                                 </div>

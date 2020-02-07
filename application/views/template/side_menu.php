@@ -85,9 +85,9 @@
               </li>
 
               <li class="nav-item">
-                <a href="<?php echo site_url('/Setting/brand'); ?>" class="nav-link">
+                <a href="<?php echo site_url().$this->config->item('ctrl_path').'/Pos_setting/set_partner'; ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>แบรนด์</p>
+                  <p>Business Partner</p>
                 </a>
               </li>
 

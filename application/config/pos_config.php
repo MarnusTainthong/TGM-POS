@@ -21,6 +21,7 @@ $config['btn_cancel'] = 'btn btn-danger';
 $config['btn_save'] = 'btn btn-success';
 $config['btn_edit'] = 'btn btn-warning';
 $config['btn_delete'] = 'btn btn-danger';
+$config['btn_more_info'] = 'btn btn-primary';
 
 // set text
 $config['txt_cancel'] = 'ยกเลิก';
@@ -31,12 +32,17 @@ $config['swal_cc_txt'] = 'ยกเลิก'; // ปุ่มยกเลิก
 // set icon
 $config['icon_edit'] = 'fas fa-edit';
 $config['icon_delete'] = 'fas fa-trash';
+$config['icon_more_info'] = 'fas fa-search';
 
 // tooltip
 $config['tooltip_edit'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="คลิกเพื่อแก้ไขข้อมูล"';
 $config['tooltip_delete'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="คลิกเพื่อลบข้อมูล"';
+$config['tooltip_info'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="คลิกเพื่อดูรายละเอียด"';
 
 // set table
 $config['td_action'] = 'td_action';
+
+// set form
+$config['formMark'] = '<span class="inputMark">*</span>';
 
 ?>

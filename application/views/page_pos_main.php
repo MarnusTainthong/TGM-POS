@@ -91,6 +91,14 @@ table>thead {
 .btn-warning:hover {
     color: #fff;
 }
-
 /* btn edit style */
+
+.inputMark{
+    color: #dc3545;
+}
+/* set * form hilight */
+
+textarea {
+    resize: none;
+}
 </style>

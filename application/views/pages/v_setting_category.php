@@ -6,8 +6,14 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <h1>ตั้งค่าประเภทสินค้า</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">ตั้งค่า</a></li>
+                        <li class="breadcrumb-item active">ประเภทสินค้า</li>
+                    </ol>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -27,7 +33,7 @@
                         <div class="card-body">
                             <input type="hidden" class="form-control" id="category_id" disabled>
                             <div class="form-group row">
-                                <label for="category_name_input" class="col-sm-5 col-form-label">ชื่อประเภทสินค้าภาษาไทย</label>
+                                <label for="category_name_input" class="col-sm-5 col-form-label">ชื่อประเภทสินค้าภาษาไทย <?php echo($this->config->item('formMark')); ?></label>
                                 <div class="col-sm-7">
                                     <input type="text" class="form-control" name="category_name_input" id="category_name_input" placeholder="ใส่ชื่อประเภทสินค้า" required>
                                 </div>

@@ -11,6 +11,7 @@ class Pos_setting extends Login_Controller
         parent::__construct();
         $this->load->model('m_category', 'ctg_rs');
         $this->load->model('m_unit', 'unt_rs');
+        $this->load->model('m_partner', 'ptr_rs');
     }
 
     public function index()
@@ -121,11 +122,11 @@ class Pos_setting extends Login_Controller
         $this->output($this->config->item('view_folder').'v_setting_unit');
     }
     // ตั้งค่าหน่วยนับ view
-
+    
     public function get_unit_show()
     {
         $result = $this->unt_rs->get_unit_data()->result();
-
+        
         $all_data = array();
         $i = 1;
         foreach ($result as $row) {
@@ -143,13 +144,13 @@ class Pos_setting extends Login_Controller
         echo json_encode($all_data);
     }
     // datatable unit
-
+    
     public function ajax_add_unit()
     {
         $unit_id = $this->input->post('unit_id');
         $unit_name_th = $this->input->post('unit_name_th');
         $unit_name_en = $this->input->post('unit_name_en');
-
+        
         if (empty($unit_id)) {
             
             //ส่วน insert
@@ -171,7 +172,7 @@ class Pos_setting extends Login_Controller
             $this->unt_rs->unit_name_en = $unit_name_en;
             $this->unt_rs->unit_id = $unit_id;
             $this->unt_rs->edit_unit();
-
+            
             if ($this->db->trans_status() === false) {
                 $this->db->trans_rollback();
                 $data["action_status"] = 4;
@@ -185,7 +186,8 @@ class Pos_setting extends Login_Controller
         
         echo json_encode($data);
     }
-
+    // add unit
+    
     public function get_unit_by_id()
     {
         $unit_id = $this->input->post('unit_id');
@@ -195,7 +197,7 @@ class Pos_setting extends Login_Controller
         echo json_encode($result);
     }
     // get unit by id
-
+    
     public function ajax_del_unit()
     {
         $unit_id = $this->input->post('unit_id');
@@ -212,4 +214,125 @@ class Pos_setting extends Login_Controller
         echo json_encode($data);
     }
     // delete unit
+    
+    public function set_partner()
+    {
+        $this->output($this->config->item('view_folder').'v_setting_partner');
+    }
+    // show page set partner
+
+    public function get_partner_show()
+    {
+        $result = $this->ptr_rs->get_partner_data()->result();
+        
+        // echo "<pre>";
+        // print_r($result);
+        // echo "</pre>";
+        // die;
+        
+        $all_data = array();
+        $i = 1;
+        foreach ($result as $row) {
+            $data = array(
+                'ptr_seq' => '<center>' . $i++ . '</center>',
+                'ptr_id' => $row->partner_id,
+                'ptr_Fname' => $row->partner_name_full,
+                'ptr_brand_name' => $row->partner_brand_name,
+                'ptr_action' => '<div class="'.$this->config->item('td_action').'">
+                                <a class="'.$this->config->item('btn_more_info').'" href="'.site_url().$this->config->item('ctrl_path').'/Pos_setting/partner_info/'.$row->partner_id.'"'.$this->config->item('tooltip_info').'><i class="'.$this->config->item('icon_more_info').'"></i></a>
+                                <button type="button" class="'.$this->config->item('btn_edit').'" onclick="edit_partner('.$row->partner_id.')" '.$this->config->item('tooltip_edit').'><i class="'.$this->config->item('icon_edit').'"></i></button>
+                                <button type="button" class="'.$this->config->item('btn_delete').'" onclick="delete_partner('.$row->partner_id.')" '.$this->config->item('tooltip_delete').'><i class="'.$this->config->item('icon_delete').'"></i></button></div>',
+            );
+            array_push($all_data, $data);
+        }
+        
+        echo json_encode($all_data);
+    }
+    // datatable partner
+
+    public function ajax_add_partner()
+    {
+        $partner_id = $this->input->post('partner_id');
+        $partner_Fname = $this->input->post('partner_Fname');
+        $partner_Sname = $this->input->post('partner_Sname');
+        $partner_brand = $this->input->post('partner_brand');
+        $partner_desc = $this->input->post('partner_desc');
+        
+        if (empty($partner_id)) {
+            
+            //ส่วน insert
+            $this->ptr_rs->partner_name_full = $partner_Fname;
+            $this->ptr_rs->partner_name_short = $partner_Sname;
+            $this->ptr_rs->partner_brand_name = $partner_brand;
+            $this->ptr_rs->partner_desc = $partner_desc;
+            $this->ptr_rs->insert_partner();
+            if ($this->db->trans_status() === false) {
+                $this->db->trans_rollback();
+                $data["action_status"] = 2;
+                //    save not success
+            } else {
+                $this->db->trans_commit();
+                $data["action_status"] = 1;
+                //    save success
+            }
+        }else {
+            // ส่วน edit
+            $this->ptr_rs->partner_id  = $partner_id;
+            $this->ptr_rs->partner_name_full = $partner_Fname;
+            $this->ptr_rs->partner_name_short = $partner_Sname;
+            $this->ptr_rs->partner_brand_name = $partner_brand;
+            $this->ptr_rs->partner_desc = $partner_desc;
+            $this->ptr_rs->edit_partner();
+            
+            if ($this->db->trans_status() === false) {
+                $this->db->trans_rollback();
+                $data["action_status"] = 4;
+                // edit not success
+            } else {
+                $this->db->trans_commit();
+                $data["action_status"] = 3;
+                //  edit success
+            }
+        }
+        
+        echo json_encode($data);
+    }
+    // datatable
+
+    public function ajax_del_partner()
+    {
+        $partner_id = $this->input->post('partner_id');
+        $this->ptr_rs->partner_id = $partner_id;
+        $result = $this->ptr_rs->delete_partner();
+        
+        if ($this->db->trans_status() === FALSE){
+            $this->db->trans_rollback();
+            $data["action_status"] = 2;
+        }else{
+            $this->db->trans_commit();
+            $data["action_status"] = 1;
+        }
+        echo json_encode($data);
+    }
+    // delete partner
+
+    public function get_partner_by_id()
+    {
+        $partner_id = $this->input->post('partner_id');
+        $this->ptr_rs->partner_id = $partner_id;
+        $result = $this->ptr_rs->get_partner_by_id()->row_array();
+        
+        echo json_encode($result);
+    }
+    // get pasrnet by id
+
+    public function partner_info($partner_id='')
+    {
+        $data["partner_id"] = $partner_id;
+        $this->output($this->config->item('view_folder').'/v_partner_info',$data);
+    }
+    // pass partber_id data to partner_info page
+
+    
+
 }
