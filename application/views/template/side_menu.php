@@ -46,7 +46,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?php echo site_url().$this->config->item('ctrl_path').'/Pos_store/mange_product'; ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>จัดการสินค้า</p>
                 </a>

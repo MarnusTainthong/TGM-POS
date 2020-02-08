@@ -17,8 +17,7 @@ class Authen extends Login_Controller
         if ($this->checkUser()) {
             if ($this->session->userdata('us_permission') == 1) 
             {
-                // redirect('admin/Sms_base_data/dashboard');
-                $this->output('welcome_message');
+                redirect('Dashboard');
 			}
 		}else {
 			$this->not_login();

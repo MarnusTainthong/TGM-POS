@@ -24,6 +24,8 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url().$this->config->item('template_path').'plugins/datatables/datatables.min.css';?>"/>
   <!-- microtip -->
   <link rel="stylesheet" type="text/css" href="<?php echo base_url().$this->config->item('template_path').'plugins/microtip/microtip.min.css';?>"/>
+  <!-- selector2 -->
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url().$this->config->item('template_path').'plugins/select2/css/select2.min.css';?>"/>
 
 
 </head>

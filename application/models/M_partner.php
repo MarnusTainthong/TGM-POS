@@ -29,4 +29,14 @@ class M_partner extends Da_partner {
     }
     // get partner by id
 
+    public function get_partner_opt()
+    {
+        $sql = "SELECT `partner_id`, `partner_name_full`, `partner_name_short`, `partner_brand_name` 
+                FROM pos_tgm.partner 
+                WHERE partner_status = 1";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    // get partner show option
+
 }

@@ -82,7 +82,7 @@
                         <table id="partner_table" class="table table-bordered table-striped dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th width="10%">ลำดับ</th>
+                                    <th width="5%">#</th>
                                     <th width="30%">ชื่อบริษัท</th>
                                     <th width="20%">ชื่อแบรนด์</th>
                                     <th width="20%">ดำเนินการ</th>

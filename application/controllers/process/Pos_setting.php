@@ -16,7 +16,8 @@ class Pos_setting extends Login_Controller
 
     public function index()
     {
-        echo "Access system is forbidden.";
+        // echo "Access system is forbidden.";
+        redirect('Dashboard');
     }
 
     public function set_category()

@@ -27,5 +27,16 @@ class M_unit extends Da_unit {
         $result = $this->db->query($sql,array($this->unit_id));
         return $result;
     }
+    // get unit by id
+
+    public function get_unit_opt()
+    {
+        $sql = "SELECT `unit_id`, `unit_name_th` 
+                FROM pos_tgm.unit 
+                WHERE `unit_status` = 1";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    // get unit show option
 
 }
