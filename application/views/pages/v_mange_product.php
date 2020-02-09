@@ -29,8 +29,8 @@
                     <div class="card-header">
                         <h3 class="card-title">จัดการข้อมูลสินค้า</h3>
                     </div>
-                    <form class="form-horizontal" id="actionProductForm" method="post">
-                        <div class="card-body">
+                    <div class="card-body">
+                        <form class="form-horizontal" id="actionProductForm" method="post">
                             <input type="hidden" class="form-control" id="product_id" disabled>
                             <div class="form-group row">
                                 <label for="product_name_th_ip" class="col-sm-5 col-form-label">ชื่อสินค้าภาษาไทย <?php echo($this->config->item('formMark')); ?></label>
@@ -53,7 +53,7 @@
                             <div class="form-group row">
                                 <label for="product_sku_ip" class="col-sm-5 col-form-label">รหัสอ้างอิง</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="product_sku_ip" id="product_sku_ip" placeholder="รหัสอ้างอิง" >
+                                    <input type="text" class="form-control" name="product_sku_ip" id="product_sku_ip" placeholder="รหัสอ้างอิง">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -88,13 +88,13 @@
 
                                 </div>
                             </div>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer">
-                            <button type="button" class="<?php echo ($this->config->item('btn_cancel')); ?>" onclick="reset_form('actionPartnerForm')"><?php echo ($this->config->item('txt_cancel')); ?></button>
-                            <button type="button" class="<?php echo ($this->config->item('btn_save')); ?> float-right submit" onclick="add_product()"><?php echo ($this->config->item('txt_save')); ?></button>
-                        </div>
-                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="button" class="<?php echo ($this->config->item('btn_cancel')); ?>" onclick="reset_form('actionProductForm')"><?php echo ($this->config->item('txt_cancel')); ?></button>
+                        <button type="button" class="<?php echo ($this->config->item('btn_save')); ?> float-right submit" onclick="add_product()"><?php echo ($this->config->item('txt_save')); ?></button>
+                    </div>
+                    <!-- /.card-footer -->
                     </form>
                     <!-- /.form -->
                 </div>
@@ -102,7 +102,7 @@
             </div>
             <!-- lg4 md7 sm12 -->
 
-            <div class="col-md-12 col-sm-12 col-lg-7">
+            <div class="col-md-12 col-sm-12 col-lg-8">
                 <!-- Default box -->
                 <div class="<?php echo ($this->config->item('card_header_side')); ?>">
                     <div class="card-header">
@@ -111,15 +111,20 @@
                     <div class="card-body">
                         <!-- body -->
 
-                        <table id="partner_table" class="table table-bordered table-striped dataTable" width="100%" cellspacing="0">
+                        <div class="overlay dark">
+                            <i class="fas fa-2x fa-sync-alt"></i>
+                        </div>
+
+                        <table id="product_table" class="table table-bordered table-striped dataTable table-responsive" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th width="5%">#</th>
                                     <th width="10%">รหัสอ้างอิง</th>
-                                    <th width="30%">ชื่อสินค้า</th>
+                                    <th width="20%">ชื่อสินค้า</th>
                                     <th width="10%">หน่วยนับ</th>
-                                    <th width="10%">ราคา (บาท)</th>
-                                    <th width="20%">ดำเนินการ</th>
+                                    <th width="5%">ราคา (บาท)</th>
+                                    <th width="5%">บาร์โค๊ด</th>
+                                    <th width="15%">ดำเนินการ</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -131,7 +136,7 @@
                 </div>
                 <!-- /.card -->
             </div>
-            <!-- lg7 md12 sm12 -->
+            <!-- lg8 md12 sm12 -->
         </div>
         <!-- ./row -->
 
@@ -142,10 +147,11 @@
 
 <script>
 $(document).ready(function() {
-    // datatable_show();
+    datatable_show();
     opt_category();
     opt_partner();
     opt_unit();
+    validate();
 });
 
 function opt_category() {
@@ -184,40 +190,80 @@ function opt_unit() {
 }
 // opt unit
 
-function datatable_show() {
-    // reset_form('actionPartnerForm');
+function validate() {
+    jQuery.validator.addMethod("pdct_name_thRegex", function(value, element) {
+        // return this.optional(element) || /^[a-z]+$/g.test(value);
+        return this.optional(element) || /^[ก-๏()*0-9\s]+$/g.test(value);
+    }, "กรุณาใส่ชื่อสินค้าภาษาไทย ใส่ () * ได้");
+    jQuery.validator.addMethod("pdct_name_enRegex", function(value, element) {
+        // return this.optional(element) || /^[a-z]+$/g.test(value);
+        return this.optional(element) || /^[a-zA-z()*0-9\s]+$/g.test(value);
+    }, "กรุณาใส่ชื่อสินค้าภาษาอังกฤษ ใส่ () * ได้");
 
-    // $("#partner_table").dataTable({
-    //     processing: true,
-    //     bDestroy: true,
-    //     language: {url: "<?php echo base_url().$this->config->item('template_path').'plugins/datatables/languages/Thai.json'?>"},
-    //     ajax: {
-    //         type: "POST",
-    //         url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/get_partner_show/"; ?>",
-    //         dataSrc: function(data) {
-    //             var return_data = new Array();
-    //             $(data).each(function(seq, data) {
-    //                 return_data.push({
-    //                     "ptr_seq": data.ptr_seq,
-    //                     "ptr_Fname": data.ptr_Fname,
-    //                     "ptr_brand_name": data.ptr_brand_name,
-    //                     "ptr_action": data.ptr_action
-    //                 });
-    //             });
-    //             console.log(return_data);
-    //             return return_data;
-    //         } //end dataSrc
-    //     }, //end ajax
-    //     columns: [
-    //         {data: "ptr_seq"},
-    //         {data: "ptr_Fname"},
-    //         {data: "ptr_brand_name"},
-    //         {data: "ptr_action"}
-    //     ],
-    //     columnDefs: [
-    //         { orderable: false, targets: [-1,-2] }
-    //     ]
-    // });
+    $("#actionProductForm").validate({
+        rules: {
+            product_name_th_ip: { 
+                required: true,
+                pdct_name_thRegex: true 
+            },
+            product_name_en_ip: { 
+                required: true,
+                pdct_name_enRegex: true 
+            },
+            product_price_ip: { 
+                required: true,
+                number: true
+            }
+         },
+         messages: {
+            product_name_th_ip: { lettersonly: "กรุณาใส่ชื่อสินค้าภาษาไทย" },
+            product_name_en_ip: { lettersonly: "กรุณาใส่ชื่อสินค้าภาษาอังกฤษ" },
+            product_price_ip: { number: "กรุณาใส่ตัวเลขหรือทศนิยม" }
+         }
+    });
+}
+
+function datatable_show() {
+    reset_form('actionProductForm');
+
+    $("#product_table").dataTable({
+        processing: true,
+        bDestroy: true,
+        language: {url: "<?php echo base_url().$this->config->item('template_path').'plugins/datatables/languages/Thai.json'?>"},
+        ajax: {
+            type: "POST",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_product_show/"; ?>",
+            dataSrc: function(data) {
+                var return_data = new Array();
+                $(data).each(function(seq, data) {
+                    return_data.push({
+                        "pdct_seq": data.pdct_seq,
+                        "pdct_sku": data.pdct_sku,
+                        "pdct_name": data.pdct_name,
+                        "pdct_unit": data.pdct_unit,
+                        "pdct_price": data.pdct_price,
+                        "pdct_barcode": data.pdct_barcode,
+                        "pdct_action": data.pdct_action
+                    });
+                    $(".overlay").remove();
+                });
+                console.log(return_data);
+                return return_data;
+            } //end dataSrc
+        }, //end ajax
+        columns: [
+            {data: "pdct_seq"},
+            {data: "pdct_sku"},
+            {data: "pdct_name"},
+            {data: "pdct_unit"},
+            {data: "pdct_price"},
+            {data: "pdct_barcode"},
+            {data: "pdct_action"}
+        ],
+        columnDefs: [
+            { orderable: false, targets: [-1,-2,-3,-4] }
+        ]
+    });
 
 }
 
@@ -227,29 +273,38 @@ function add_product() {
 
     if ($(frm_id).valid()) {
 
-    //     var partner_id = $("#partner_id").val();
-    //     var partner_Fname = $("#partner_Fname_input").val();
-    //     var partner_Sname = $("#partner_Sname_input").val();
-    //     var partner_brand = $("#partner_brand_input").val();
-    //     var partner_desc = $("#partner_desc").val();
+        var product_id = $("#product_id").val();
+        var product_name_th = $("#product_name_th_ip").val();
+        var product_name_en = $("#product_name_en_ip").val();
+        var product_desc = $("#product_desc_ip").val();
+        var product_sku = $("#product_sku_ip").val();
+        var producct_barcode = $("#producct_barcode_ip").val();
+        var product_category = $("#product_category_ip").val();
+        var product_price = $("#product_price_ip").val();
+        var product_supplier = $("#product_supplier_ip").val();
+        var product_unit = $("#product_unit_ip").val();
 
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/ajax_add_partner/"; ?>",
-    //         data: {
-    //             partner_id: partner_id,
-    //             partner_Fname: partner_Fname,
-    //             partner_Sname: partner_Sname,
-    //             partner_brand: partner_brand,
-    //             partner_desc: partner_desc
-    //         },
-    //         dataType: "json",
-    //         success: function(data) {
-    //             // console.log(data);
-    //             messege_show(data);
-    //             datatable_show(); //refresh datatable
-    //         } // End success
-    //     }); // End ajax
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/ajax_add_product/"; ?>",
+            data: {
+                product_id: product_id,
+                product_name_th: product_name_th,
+                product_name_en: product_name_en,
+                product_desc: product_desc,
+                product_sku: product_sku,
+                producct_barcode: producct_barcode,
+                product_category: product_category,
+                product_price: product_price,
+                product_supplier: product_supplier,
+                product_unit: product_unit
+            },
+            dataType: "json",
+            success: function(data) {
+                messege_show(data);
+                datatable_show();
+            } // End success
+        }); // End ajax
     }
 }
 

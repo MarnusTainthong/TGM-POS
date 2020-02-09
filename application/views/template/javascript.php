@@ -11,6 +11,7 @@
 <script type="text/javascript" src="<?php echo base_url().$this->config->item('template_path').'plugins/datatables/datatables.min.js'?>"></script>
 <!-- validate -->
 <script type="text/javascript" src="<?php echo base_url().$this->config->item('template_path').'plugins/jquery-validation/jquery.validate.min.js'?>"></script>
+<script type="text/javascript" src="<?php echo base_url().$this->config->item('template_path').'plugins/jquery-validation/additional-methods.min.js'?>"></script>
 <script type="text/javascript" src="<?php echo base_url().$this->config->item('template_path').'plugins/jquery-validation/localization/messages_th.min.js'?>"></script>
 <!-- selector2 -->
 <script type="text/javascript" src="<?php echo base_url().$this->config->item('template_path').'plugins/select2/js/select2.min.js'?>"></script>

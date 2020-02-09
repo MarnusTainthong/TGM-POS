@@ -298,7 +298,7 @@ class Pos_setting extends Login_Controller
         
         echo json_encode($data);
     }
-    // datatable
+    // add partner
 
     public function ajax_del_partner()
     {
