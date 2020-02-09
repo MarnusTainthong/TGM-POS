@@ -111,6 +111,81 @@ class Pos_store extends Login_Controller
     }
     // datatable product
 
+    public function get_product_by_id()
+    {
+        $product_id = $this->input->post('product_id');
+        $this->pdct_rs->product_id = $product_id;
+        $result = $this->pdct_rs->get_product_by_id()->row_array();
+        echo json_encode($result);
+    }
+    // get product data by id
+
+    public function get_category_opt_select()
+    {
+        $category_id = $this->input->post('ctg_id');
+        $result = $this->ctg_rs->get_category_opt()->result();
+
+        $opt = '<option disabled="disabled">เลือกหมวดหมู่สินค้า</option>';
+
+            $selected = "";
+            foreach ($result as $row ) {
+                if ($row->category_id == $category_id) {
+                    $selected = "selected";
+                }else {
+                    $selected = "";
+                }
+                $opt .= '<option '. $selected .' value="'.$row->category_id.'">'.$row->category_name.'</option>';
+    
+            }
+
+        echo json_encode($opt);
+    }
+    // select category opt by id
+
+    public function get_partner_opt_select()
+    {
+        $partner_id = $this->input->post('ptr_id');
+        $result = $this->ptr_rs->get_partner_opt()->result();
+
+        $opt = '<option disabled="disabled">เลือกตัวแทนจำหน่าย</option>';
+
+            $selected = "";
+            foreach ($result as $row ) {
+                if ($row->partner_id == $partner_id) {
+                    $selected = "selected";
+                }else {
+                    $selected = "";
+                }
+                $opt .= '<option '.$selected.' value="'.$row->partner_id.'">('.$row->partner_brand_name.') '.$row->partner_name_full.'</option>';
+    
+            }
+
+        echo json_encode($opt);
+    }
+    // get partner opt select
+
+    public function get_unit_opt_select()
+    {
+        $unit_id = $this->input->post('unt_id');
+        $result = $this->unt_rs->get_unit_opt()->result();
+
+        $opt = '<option disabled="disabled">เลือกหน่วยนับ</option>';
+
+            $selected = "";
+            foreach ($result as $row ) {
+                if ($row->unit_id  == $unit_id ) {
+                    $selected = "selected";
+                }else {
+                    $selected = "";
+                }
+                $opt .= '<option '. $selected .' value="'.$row->unit_id.'">'.$row->unit_name_th.'</option>';
+    
+            }
+
+        echo json_encode($opt);
+    }
+    // get unit opt select
+
     public function ajax_add_product()
     {
         $product_id = $this->input->post('product_id');

@@ -308,22 +308,67 @@ function add_product() {
     }
 }
 
-function edit_partner(partner_id) {
-    // $.ajax({
-    //     type: "POST",
-    //     url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/get_partner_by_id/"; ?>",
-    //     data: {partner_id: partner_id},
-    //     dataType: "json",
-    //     success: function(data) {
-    //         // console.log(data);
-    //         $("#partner_id").val(data["partner_id"]);
-    //         $("#partner_Fname_input").val(data["partner_name_full"]);
-    //         $("#partner_Sname_input").val(data["partner_name_short"]);
-    //         $("#partner_brand_input").val(data["partner_brand_name"]);
-    //         $("#partner_desc").val(data["partner_desc"]);
-    //     }
-    // });
+function edit_product(product_id) {
+    $.ajax({
+        type: "POST",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_product_by_id/"; ?>",
+        data: {product_id: product_id},
+        dataType: "json",
+        success: function(data) {
+            $("#product_id").val(data["product_id"]);
+            $("#product_name_th_ip").val(data["product_name_th"]);
+            $("#product_name_en_ip").val(data["product_name_en"]);
+            $("#product_desc_ip").val(data["product_details"]);
+            $("#product_sku_ip").val(data["product_sku"]);
+            $("#producct_barcode_ip").val(data["product_barcode"]);
+            $("#product_price_ip").val(data["product_retail_price"]);
+            //dropdown select
+            select_opt_category(data["product_category_id"]);
+            select_opt_partner(data["product_partner_id"]);
+            select_opt_unit(data["product_unit_id"]);
+        }
+    });
 }
+// edit_product
+
+function select_opt_category(ctg_id) {
+    $.ajax({
+        type: "POST",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_category_opt_select/"; ?>",
+        data: {ctg_id:ctg_id},
+        dataType: "json",
+        success: function (response) {
+            $("#product_category_ip").html(response);
+        }
+    });
+}
+// select_opt_category
+
+function select_opt_partner(ptr_id) {
+    $.ajax({
+        type: "POST",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_partner_opt_select/"; ?>",
+        data: {ptr_id:ptr_id},
+        dataType: "json",
+        success: function (response) {
+            $("#product_supplier_ip").html(response);
+        }
+    });
+}
+// select_opt_partner
+
+function select_opt_unit(unt_id) {
+    $.ajax({
+        type: "POST",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_unit_opt_select/"; ?>",
+        data: {unt_id:unt_id},
+        dataType: "json",
+        success: function (response) {
+            $("#product_unit_ip").html(response);
+        }
+    });
+}
+// select opt unit
 
 function delete_partner(partner_id) {
     
