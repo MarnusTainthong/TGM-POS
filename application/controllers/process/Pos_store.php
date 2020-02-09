@@ -80,7 +80,7 @@ class Pos_store extends Login_Controller
                     'pdct_seq' => '<center>' . $i++ . '</center>',
                     'pdct_id' => $row->product_id,
                     'pdct_sku' => '<center>'. $row->product_sku . '</center>',
-                    'pdct_name' => $row->product_name_th.' - '.$row->product_barcode,
+                    'pdct_name' => $row->product_name_th,
                     'pdct_unit' => '<center>' . $row->unit_name_th . '</center>',
                     'pdct_price' => '<center>' . $row->product_retail_price . '</center>',
                     'pdct_barcode' => '<center><button type="button" class="'.$this->config->item('btn_true').' " '.$this->config->item('tooltip_have_barcode').'><i class="'.$this->config->item('icon_check').'"></i></button></center>',
@@ -193,7 +193,7 @@ class Pos_store extends Login_Controller
         $product_name_en = $this->input->post('product_name_en');
         $product_desc = $this->input->post('product_desc');
         $product_sku = $this->input->post('product_sku');
-        $producct_barcode = $this->input->post('producct_barcode');
+        $product_barcode = $this->input->post('producct_barcode');
         $product_category = $this->input->post('product_category');
         $product_price = $this->input->post('product_price');
         $product_supplier = $this->input->post('product_supplier');
@@ -206,7 +206,7 @@ class Pos_store extends Login_Controller
             $this->pdct_rs->product_name_en = $product_name_en;
             $this->pdct_rs->product_desc = $product_desc;
             $this->pdct_rs->product_sku = $product_sku;
-            $this->pdct_rs->producct_barcode = $producct_barcode;
+            $this->pdct_rs->product_barcode = $product_barcode;
             $this->pdct_rs->product_category = $product_category;
             $this->pdct_rs->product_price = $product_price;
             $this->pdct_rs->product_supplier = $product_supplier;
@@ -223,12 +223,17 @@ class Pos_store extends Login_Controller
             }
         }else {
             // ส่วน edit
-            $this->pdct_rs->partner_id  = $partner_id;
-            $this->pdct_rs->partner_name_full = $partner_Fname;
-            $this->pdct_rs->partner_name_short = $partner_Sname;
-            $this->pdct_rs->partner_brand_name = $partner_brand;
-            $this->pdct_rs->partner_desc = $partner_desc;
-            $this->pdct_rs->edit_partner();
+            $this->pdct_rs->product_id = $product_id;
+            $this->pdct_rs->product_name_th = $product_name_th;
+            $this->pdct_rs->product_name_en = $product_name_en;
+            $this->pdct_rs->product_desc = $product_desc;
+            $this->pdct_rs->product_sku = $product_sku;
+            $this->pdct_rs->product_barcode = $product_barcode;
+            $this->pdct_rs->product_category = $product_category;
+            $this->pdct_rs->product_price = $product_price;
+            $this->pdct_rs->product_supplier = $product_supplier;
+            $this->pdct_rs->product_unit = $product_unit;
+            $this->pdct_rs->edit_product();
             
             if ($this->db->trans_status() === false) {
                 $this->db->trans_rollback();

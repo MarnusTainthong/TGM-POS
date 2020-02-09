@@ -14,19 +14,20 @@ class Da_product extends Main_model {
     {
         $sql = "INSERT INTO `product` (`product_name_th`, `product_name_en`, `product_details`, `product_sku`, `product_barcode`, `product_category_id`, `product_retail_price`, `product_partner_id`, `product_unit_id`, `product_status`) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
-        $this->db->query($sql,array($this->product_name_th,$this->product_name_en,$this->product_desc,$this->product_sku,$this->producct_barcode,
+        $this->db->query($sql,array($this->product_name_th,$this->product_name_en,$this->product_desc,$this->product_sku,$this->product_barcode,
                                     $this->product_category,$this->product_price,$this->product_supplier,$this->product_unit));
     }
     // insert product
     
-    public function edit_partner()
+    public function edit_product()
     {
-        // $sql = "UPDATE `partner` 
-        //         SET `partner_name_full` = ?, `partner_name_short` = ?, `partner_brand_name` = ?, `partner_desc` = ? 
-        //         WHERE `partner`.`partner_id` = ?";
-        // $this->db->query($sql,array($this->partner_name_full,$this->partner_name_short,$this->partner_brand_name,$this->partner_desc,$this->partner_id));
+        $sql = "UPDATE `product` 
+                SET `product_name_th` = ?, `product_name_en` = ?, `product_details` = ?, `product_sku` = ?, `product_barcode` = ?, `product_category_id` = ?, `product_retail_price` = ?, `product_partner_id` = ?, `product_unit_id` = ? 
+                WHERE `product`.`product_id` = ?";
+        $this->db->query($sql,array($this->product_name_th,$this->product_name_en,$this->product_desc,$this->product_sku,$this->product_barcode,
+                                    $this->product_category,$this->product_price,$this->product_supplier,$this->product_unit,$this->product_id));
     }
-    // edit partner
+    // edit product
     
     public function delete_partner()
     {
