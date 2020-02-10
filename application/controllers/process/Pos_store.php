@@ -250,6 +250,23 @@ class Pos_store extends Login_Controller
     }
     // add & update product
 
+    public function ajax_del_product()
+    {
+        $product_id = $this->input->post('product_id');
+        $this->pdct_rs->product_id = $product_id;
+        $result = $this->pdct_rs->delete_product();
+        
+        if ($this->db->trans_status() === FALSE){
+            $this->db->trans_rollback();
+            $data["action_status"] = 2;
+        }else{
+            $this->db->trans_commit();
+            $data["action_status"] = 1;
+        }
+        echo json_encode($data);
+    }
+    // delete product
+
     public function product_info($product_id="")
     {
         $data["product_id"] = $product_id;

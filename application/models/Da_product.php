@@ -29,12 +29,12 @@ class Da_product extends Main_model {
     }
     // edit product
     
-    public function delete_partner()
+    public function delete_product()
     {
-        // $sql = "UPDATE `partner` 
-        //         SET `partner_status` = '0' 
-        //         WHERE `partner`.`partner_id` = ?";
-        // $this->db->query($sql,array($this->partner_id));
+        $sql = "UPDATE `product` 
+                SET `product_status` = '0' 
+                WHERE `product`.`product_id` = ?";
+        $this->db->query($sql,array($this->product_id));
     }
     // update status to not use
 

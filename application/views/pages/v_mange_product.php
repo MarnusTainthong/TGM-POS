@@ -370,31 +370,31 @@ function select_opt_unit(unt_id) {
 }
 // select opt unit
 
-function delete_partner(partner_id) {
+function delete_product(product_id) {
     
-// swal.fire({
-//     title: 'คุณต้องการลบข้อมูลใช่หรือไม่ ?',
-//     text: "หากลบแล้วข้อมูลจะไม่สามารถกู้คืนได้อีก !",
-//     type: 'warning',
-//     confirmButtonText: '<?php echo $this->config->item('swal_cf_txt');?>',
-//     cancelButtonText: '<?php echo $this->config->item('swal_cc_txt');?>',
-//     showCancelButton: true,
-//     reverseButtons: true,
-//     confirmButtonColor: '#dc3545'
-// }).then((result) => {
-//     if (result.value) {
-//         $.ajax({
-//             type : "POST",
-//             url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_setting/ajax_del_partner/"; ?>",
-//             data : {partner_id:partner_id},
-//             dataType : "json",
-//             success : function(data){
-//                 datatable_show();
-//                 messege_show(data);
-//             }
-//         });//end ajax
-//     }
-// });
+swal.fire({
+    title: 'คุณต้องการลบข้อมูลใช่หรือไม่ ?',
+    text: "หากลบแล้วข้อมูลจะไม่สามารถกู้คืนได้อีก !",
+    type: 'warning',
+    confirmButtonText: '<?php echo $this->config->item('swal_cf_txt');?>',
+    cancelButtonText: '<?php echo $this->config->item('swal_cc_txt');?>',
+    showCancelButton: true,
+    reverseButtons: true,
+    confirmButtonColor: '#dc3545'
+}).then((result) => {
+    if (result.value) {
+        $.ajax({
+            type : "POST",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/ajax_del_product/"; ?>",
+            data : {product_id:product_id},
+            dataType : "json",
+            success : function(data){
+                datatable_show();
+                messege_show(data);
+            }
+        });//end ajax
+    }
+});
 
 }
 </script>
