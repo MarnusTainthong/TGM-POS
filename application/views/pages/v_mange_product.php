@@ -106,15 +106,10 @@
                 <!-- Default box -->
                 <div class="<?php echo ($this->config->item('card_header_side')); ?>">
                     <div class="card-header">
-                        <h3 class="card-title">รายการบริษัทคู่ค้า </h3>
+                        <h3 class="card-title">รายการสินค้า</h3>
                     </div>
                     <div class="card-body">
                         <!-- body -->
-
-                        <div class="overlay dark">
-                            <i class="fas fa-2x fa-sync-alt"></i>
-                        </div>
-
                         <table id="product_table" class="table table-bordered table-striped dataTable table-responsive" cellspacing="0">
                             <thead>
                                 <tr>
@@ -157,7 +152,7 @@ $(document).ready(function() {
 function opt_category() {
     $.ajax({
         type: "POST",
-        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_category_opt/"; ?>",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_category_opt/"; ?>",
         dataType: "json",
         success: function (response) {
             $("#product_category_ip").html(response);
@@ -169,7 +164,7 @@ function opt_category() {
 function opt_partner() {
     $.ajax({
         type : "POST",
-        url : "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_partner_opt/"; ?>",
+        url : "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_partner_opt/"; ?>",
         dataType : "json",
         success : function(data){
             $("#product_supplier_ip").html(data);
@@ -181,7 +176,7 @@ function opt_partner() {
 function opt_unit() {
     $.ajax({
         type: "POST",
-        url : "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_unit_opt/"; ?>",
+        url : "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_unit_opt/"; ?>",
         dataType: "json",
         success: function (response) {
             $("#product_unit_ip").html(response);
@@ -232,7 +227,7 @@ function datatable_show() {
         language: {url: "<?php echo base_url().$this->config->item('template_path').'plugins/datatables/languages/Thai.json'?>"},
         ajax: {
             type: "POST",
-            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_product_show/"; ?>",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_product_show/"; ?>",
             dataSrc: function(data) {
                 var return_data = new Array();
                 $(data).each(function(seq, data) {
@@ -286,7 +281,7 @@ function add_product() {
 
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/ajax_add_product/"; ?>",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/ajax_add_product/"; ?>",
             data: {
                 product_id: product_id,
                 product_name_th: product_name_th,
@@ -311,7 +306,7 @@ function add_product() {
 function edit_product(product_id) {
     $.ajax({
         type: "POST",
-        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_product_by_id/"; ?>",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_product_by_id/"; ?>",
         data: {product_id: product_id},
         dataType: "json",
         success: function(data) {
@@ -334,7 +329,7 @@ function edit_product(product_id) {
 function select_opt_category(ctg_id) {
     $.ajax({
         type: "POST",
-        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_category_opt_select/"; ?>",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_category_opt_select/"; ?>",
         data: {ctg_id:ctg_id},
         dataType: "json",
         success: function (response) {
@@ -347,7 +342,7 @@ function select_opt_category(ctg_id) {
 function select_opt_partner(ptr_id) {
     $.ajax({
         type: "POST",
-        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_partner_opt_select/"; ?>",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_partner_opt_select/"; ?>",
         data: {ptr_id:ptr_id},
         dataType: "json",
         success: function (response) {
@@ -360,7 +355,7 @@ function select_opt_partner(ptr_id) {
 function select_opt_unit(unt_id) {
     $.ajax({
         type: "POST",
-        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_unit_opt_select/"; ?>",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_unit_opt_select/"; ?>",
         data: {unt_id:unt_id},
         dataType: "json",
         success: function (response) {
@@ -385,7 +380,7 @@ swal.fire({
     if (result.value) {
         $.ajax({
             type : "POST",
-            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/ajax_del_product/"; ?>",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/ajax_del_product/"; ?>",
             data : {product_id:product_id},
             dataType : "json",
             success : function(data){

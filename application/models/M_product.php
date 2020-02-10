@@ -30,4 +30,23 @@ class M_product extends Da_product {
     }
     // get product data to set when edit
 
+    public function get_product_opt_all()
+    {
+        $sql = "SELECT product_id, product_name_th
+                FROM pos_tgm.product
+                WHERE product_status = 1";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    // get product all to opt
+
+    public function get_product_opt_like($searchTerm="")
+    {
+        $sql = "SELECT product_id, product_name_th 
+                FROM pos_tgm.product 
+                WHERE product_status = 1 AND product_name_th LIKE '%".$searchTerm."%'";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+
 }

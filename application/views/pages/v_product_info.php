@@ -7,12 +7,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><span id="title_text">ข้อมูลสินค้ารายการ</span></h1>
+                    <h1><span id="title_text">รายการข้อมูลสินค้า</span></h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">จัดการหลังร้าน</a></li>
-                        <li class="breadcrumb-item"><a href="<?php echo site_url().$this->config->item('ctrl_path').'/Pos_store/mange_product'; ?>">จัดการสินค้า</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo site_url().$this->config->item('ctrl_path').'/Pos_product/mange_product'; ?>">จัดการสินค้า</a></li>
                         <li class="breadcrumb-item active"><span id="breadcrumb_text">ข้อมูลสินค้ารายการ</span></li>
                     </ol>
                 </div>
@@ -117,7 +117,7 @@ function set_data() {
     var product_id = <?php echo($product_id); ?> ;
     $.ajax({
         type: "POST",
-        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_product_by_id/"; ?>",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_product_by_id/"; ?>",
         data: {
             product_id: product_id
         },
