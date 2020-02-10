@@ -250,4 +250,21 @@ class Pos_store extends Login_Controller
     }
     // add & update product
 
+    public function product_info($product_id="")
+    {
+        $data["product_id"] = $product_id;
+        $this->output($this->config->item('view_folder').'/v_product_info',$data);
+    }
+    // more info product page
+
+    // public function get_product_by_id()
+    // {
+    //     $product_id = $this->input->post('product_id');
+    //     $this->pdct_rs->partner_id = $partner_id;
+    //     $result = $this->pdct_rs->get_product_by_id()->row_array();
+        
+    //     echo json_encode($result);
+    // }
+    // set data to more info page
+
 }

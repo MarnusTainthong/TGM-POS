@@ -261,7 +261,7 @@ function datatable_show() {
             {data: "pdct_action"}
         ],
         columnDefs: [
-            { orderable: false, targets: [-1,-2,-3,-4] }
+            { orderable: false, targets: [-1,-2,-4] }
         ]
     });
 
