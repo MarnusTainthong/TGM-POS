@@ -37,6 +37,7 @@ $config['icon_delete'] = 'fas fa-trash';
 $config['icon_more_info'] = 'fas fa-search';
 $config['icon_check'] = 'fas fa-check';
 $config['icon_no_check'] = 'fas fa-times';
+$config['icon_add'] = 'fas fa-plus';
 
 // tooltip
 $config['tooltip_edit'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="คลิกเพื่อแก้ไขข้อมูล"';
@@ -44,6 +45,7 @@ $config['tooltip_delete'] = 'role="tooltip" data-microtip-size="fit" data-microt
 $config['tooltip_info'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="คลิกเพื่อดูรายละเอียด"';
 $config['tooltip_have_barcode'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="สินค้ามีบาร์โค้ด"';
 $config['tooltip_no_barcode'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="สินค้าไม่มีมีบาร์โค้ด"';
+$config['tooltip_add_qty'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="บันทึกสินค้าเพิ่ม"';
 
 // set table
 $config['td_action'] = 'td_action';

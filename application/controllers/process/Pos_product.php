@@ -85,7 +85,7 @@ class Pos_product extends Login_Controller
                     'pdct_price' => '<center>' . $row->product_retail_price . '</center>',
                     'pdct_barcode' => '<center><button type="button" class="'.$this->config->item('btn_true').' " '.$this->config->item('tooltip_have_barcode').'><i class="'.$this->config->item('icon_check').'"></i></button></center>',
                     'pdct_action' => '<div class="'.$this->config->item('td_action').'">
-                                    <a class="'.$this->config->item('btn_more_info').'" href="'.site_url().$this->config->item('ctrl_path').'/Pos_store/product_info/'.$row->product_id.'"'.$this->config->item('tooltip_info').'><i class="'.$this->config->item('icon_more_info').'"></i></a>
+                                    <a class="'.$this->config->item('btn_more_info').'" href="'.site_url().$this->config->item('ctrl_path').'/Pos_product/product_info/'.$row->product_id.'"'.$this->config->item('tooltip_info').'><i class="'.$this->config->item('icon_more_info').'"></i></a>
                                     <button type="button" class="'.$this->config->item('btn_edit').'" onclick="edit_product('.$row->product_id.')" '.$this->config->item('tooltip_edit').'><i class="'.$this->config->item('icon_edit').'"></i></button>
                                     <button type="button" class="'.$this->config->item('btn_delete').'" onclick="delete_product('.$row->product_id.')" '.$this->config->item('tooltip_delete').'><i class="'.$this->config->item('icon_delete').'"></i></button></div>',
                 );
@@ -99,7 +99,7 @@ class Pos_product extends Login_Controller
                     'pdct_price' => '<center>' . $row->product_retail_price . '</center>',
                     'pdct_barcode' => '<center><button type="button" class="'.$this->config->item('btn_false').' " '.$this->config->item('tooltip_no_barcode').'><i class="'.$this->config->item('icon_no_check').'"></i></button></center>',
                     'pdct_action' => '<div class="'.$this->config->item('td_action').'">
-                                    <a class="'.$this->config->item('btn_more_info').'" href="'.site_url().$this->config->item('ctrl_path').'/Pos_store/product_info/'.$row->product_id.'"'.$this->config->item('tooltip_info').'><i class="'.$this->config->item('icon_more_info').'"></i></a>
+                                    <a class="'.$this->config->item('btn_more_info').'" href="'.site_url().$this->config->item('ctrl_path').'/Pos_product/product_info/'.$row->product_id.'"'.$this->config->item('tooltip_info').'><i class="'.$this->config->item('icon_more_info').'"></i></a>
                                     <button type="button" class="'.$this->config->item('btn_edit').'" onclick="edit_product('.$row->product_id.')" '.$this->config->item('tooltip_edit').'><i class="'.$this->config->item('icon_edit').'"></i></button>
                                     <button type="button" class="'.$this->config->item('btn_delete').'" onclick="delete_product('.$row->product_id.')" '.$this->config->item('tooltip_delete').'><i class="'.$this->config->item('icon_delete').'"></i></button></div>',
                 );

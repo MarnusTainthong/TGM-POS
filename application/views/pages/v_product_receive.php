@@ -87,7 +87,7 @@
                     </div>
                     <div class="card-body">
                         <!-- body -->
-                        <table id="product_table" class="table table-bordered table-striped dataTable table-responsive" cellspacing="0">
+                        <table id="productReceive_table" class="table table-bordered table-striped dataTable table-responsive" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th width="5%">#</th>
@@ -107,6 +107,9 @@
                         <!-- table -->
                     </div>
                     <!-- /.card-body -->
+                    <div class="overlay dark">
+                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                    </div>
                 </div>
                 <!-- /.card -->
             </div>
@@ -128,25 +131,30 @@ $(document).ready(function() {
 
     validate();
     opt_product_all();
+    datatableProductIn();
 });
 
 function validate() {
 
     $("#ProductReceiveForm").validate({
         rules: {
-            inventory_lot: { 
+            inventory_lot: {
                 required: true,
-                digits: true 
+                digits: true
             },
-            inventory_qty: { 
+            inventory_qty: {
                 required: true,
-                number: true 
+                number: true
             }
-         },
-         messages: {
-            inventory_lot: { digits: "กรุณาใส่เลขจำนวนเต็ม" },
-            inventory_qty: { number: "กรุณาใส่เลขจำนวนเต็มหรือทศนิยม" }
-         }
+        },
+        messages: {
+            inventory_lot: {
+                digits: "กรุณาใส่เลขจำนวนเต็ม"
+            },
+            inventory_qty: {
+                number: "กรุณาใส่เลขจำนวนเต็มหรือทศนิยม"
+            }
+        }
     });
 
 }
@@ -158,14 +166,14 @@ function opt_product_all() {
         ajax: {
             type: "POST",
             dataType: 'json',
-            url: '<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_product_opt/"; ?>',
+            url: '<?php echo site_url().$this->config->item('ctrl_path ')."/Pos_product/get_product_opt/"; ?>',
             // delay: 250,
-            data: function (params) {
+            data: function(params) {
                 return {
                     searchTerm: params.term // search term
                 };
             },
-            processResults: function (data) { 
+            processResults: function(data) {
                 return {
                     results: data
                 };
@@ -180,13 +188,85 @@ function opt_product_all() {
 
 function add_product_inv() {
 
-var frm_id = ProductReceiveForm;
+    var frm_id = ProductReceiveForm;
 
-if ($(frm_id).valid()) {
+    if ($(frm_id).valid()) {
 
-    
-    
+        var inventory_id = $("#inventory_id").val();
+        var inventory_product_name = $("#inventory_product_name").val();
+        var inventory_lot = $("#inventory_lot").val();
+        var inventory_produce = $("#inventory_produce").val();
+        var inventory_exp = $("#inventory_exp").val();
+        var inventory_qty = $("#inventory_qty").val();
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/ajax_add_product_inv/"; ?>",
+            data: {
+                inventory_id: inventory_id,
+                inventory_product_name: inventory_product_name,
+                inventory_lot: inventory_lot,
+                inventory_produce: inventory_produce,
+                inventory_exp: inventory_exp,
+                inventory_qty: inventory_qty
+            },
+            dataType: "json",
+            success: function(data) {
+                messege_show(data);
+                datatable_show();
+            } // End success
+        }); // End ajax
+    }
+    // add&edit product
+
 }
+
+function datatableProductIn() {
+    reset_form('ProductReceiveForm');
+
+    $("#productReceive_table").dataTable({
+        processing: true,
+        bDestroy: true,
+        language: {url: "<?php echo base_url().$this->config->item('template_path').'plugins/datatables/languages/Thai.json'?>"},
+        ajax: {
+            type: "POST",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_product_in/"; ?>",
+            dataSrc: function(data) {
+                var return_data = new Array();
+                $(data).each(function(seq, data) {
+                    return_data.push({
+                        "pdct_seq": data.pdct_seq,
+                        "pdct_sku": data.pdct_sku,
+                        "pdct_name": data.pdct_name,
+                        "pdct_qty": data.pdct_qty,
+                        "pdct_unit": data.pdct_unit,
+                        "pdct_lot": data.pdct_lot,
+                        "pdct_produce": data.pdct_produce,
+                        "pdct_exp": data.pdct_exp,
+                        "pdct_action": data.pdct_action
+                    });
+                    $(".overlay").remove();
+                });
+                console.log(return_data);
+                return return_data;
+            } //end dataSrc
+        }, //end ajax
+        columns: [
+            {data: "pdct_seq"},
+            {data: "pdct_sku"},
+            {data: "pdct_name"},
+            {data: "pdct_qty"},
+            {data: "pdct_unit"},
+            {data: "pdct_lot"},
+            {data: "pdct_produce"},
+            {data: "pdct_exp"},
+            {data: "pdct_action"}
+        ],
+        columnDefs: [
+            { orderable: false, targets: [-1,-4,-5,-6] }
+        ]
+    });
 }
+
 
 </script>
