@@ -31,6 +31,14 @@ function dateFormatTH($date) {
 	else if($mm=='12') { $mm='ธันวาคม'; }
 	$yy += 543;
 	return "$dd $mm พ.ศ. $yy";
+	// DD MM พ.ศ. YY
+}
+
+function dateFormatTH2($date) {
+	list($yy, $mm, $dd) = preg_split("[/|-]",$date);
+	$yy += 543;
+	return "$dd"."/"."$mm"."/".$yy;
+	// DD/MM/YY
 }
 
 ?>

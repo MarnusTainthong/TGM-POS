@@ -20,4 +20,14 @@ class M_inventory extends Da_inventory {
         return $result;
     }
     // get product to show database
+
+    public function get_inventory_by_id()
+    {
+        $sql = "SELECT `inventory_product_id`, `inventory_lot`, `inventory_qty`, `inventory_produce`, `inventory_exp`
+                FROM `inventory` 
+                WHERE inventory.inventory_id = ?";
+        $result = $this->db->query($sql,array($this->inventory_id));
+        return $result;
+    }
+    // get_inventory_by_id
 }

@@ -99,10 +99,10 @@ class Pos_store extends Login_Controller
                 'pdct_qty' => '<center>' . $row->inventory_qty . '</center>',
                 'pdct_unit' => '<center>' . $row->unit_name_th . '</center>',
                 'pdct_lot' => '<center>' . $row->inventory_lot . '</center>',
-                'pdct_produce' => '<center>' . $row->inventory_produce . '</center>',
-                'pdct_exp' => '<center>' . $row->inventory_exp . '</center>',
+                'pdct_produce' => '<center>' . dateFormatTH2($row->inventory_produce) . '</center>',
+                'pdct_exp' => '<center>' . dateFormatTH2($row->inventory_exp) . '</center>',
                 'pdct_action' => '<div class="'.$this->config->item('td_action').'">
-                                <a class="'.$this->config->item('btn_more_info').'" href="'.site_url().$this->config->item('ctrl_path').'/Pos_product/product_info/'.$row->inventory_id.'"'.$this->config->item('tooltip_add_qty').'><i class="'.$this->config->item('icon_add').'"></i></a>
+                                <button type="button" class="'.$this->config->item('btn_more_info').'" onclick="add_product_qty('.$row->inventory_id.')" '.$this->config->item('tooltip_add_qty').'><i class="'.$this->config->item('icon_add').'"></i></button>
                                 <button type="button" class="'.$this->config->item('btn_edit').'" onclick="edit_product('.$row->inventory_id.')" '.$this->config->item('tooltip_edit').'><i class="'.$this->config->item('icon_edit').'"></i></button>
                                 <button type="button" class="'.$this->config->item('btn_delete').'" onclick="delete_product('.$row->inventory_id.')" '.$this->config->item('tooltip_delete').'><i class="'.$this->config->item('icon_delete').'"></i></button></div>',
             );
@@ -112,4 +112,14 @@ class Pos_store extends Login_Controller
         
         echo json_encode($all_data);
     }
+    // get_product_in
+
+    public function get_inv_by_id()
+    {
+        $inventory_id = $this->input->post('inventory_id');
+        $this->inv_rs->inventory_id = $inventory_id;
+        $result = $this->inv_rs->get_inventory_by_id()->row_array();
+        echo json_encode($result);
+    }
+    // get_inv_by_id
 }

@@ -166,7 +166,7 @@ function opt_product_all() {
         ajax: {
             type: "POST",
             dataType: 'json',
-            url: '<?php echo site_url().$this->config->item('ctrl_path ')."/Pos_product/get_product_opt/"; ?>',
+            url: '<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_product_opt/"; ?>',
             // delay: 250,
             data: function(params) {
                 return {
@@ -218,8 +218,8 @@ function add_product_inv() {
         }); // End ajax
     }
     // add&edit product
-
 }
+// add_product_inv
 
 function datatableProductIn() {
     reset_form('ProductReceiveForm');
@@ -267,6 +267,22 @@ function datatableProductIn() {
         ]
     });
 }
+// datatableProductIn
 
+function add_product_qty(inventory_id) {
+    $.ajax({
+            type: "POST",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_inv_by_id/"; ?>",
+            data: {inventory_id: inventory_id},
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                
+                // messege_show(data);
+                // datatable_show();
+            } // End success
+        }); // End ajax
+}
+// add_product_qty
 
 </script>

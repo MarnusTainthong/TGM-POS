@@ -270,7 +270,7 @@ class Pos_product extends Login_Controller
     public function get_product_opt()
     {
         $searchTerm  = $this->input->post('searchTerm');
-        $result = $this->pdct_rs->get_product_opt_like($searchTerm )->result_array();
+        $result = $this->pdct_rs->get_product_opt_like($searchTerm)->result_array();
         
         $data = array();
         foreach ($result as $row) {
