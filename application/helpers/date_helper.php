@@ -1,5 +1,10 @@
 <?php
-function fullDateTH3($date) {
+
+// ISERL
+// Faculty of Informatics
+// Burapha university
+
+function dateFormatTH($date) {
 	list($yy, $mm, $dd) = preg_split("[/|-]",$date);
 	
 	if($dd=='01') { $dd='1'; }
@@ -27,4 +32,5 @@ function fullDateTH3($date) {
 	$yy += 543;
 	return "$dd $mm พ.ศ. $yy";
 }
+
 ?>
