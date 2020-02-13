@@ -288,5 +288,43 @@ class Pos_product extends Login_Controller
         $data["product_id"] = $product_id;
         $this->output($this->config->item('view_folder').'/v_product_info',$data);
     }
+    // product_info
+
+    public function get_product_opt_by_id()
+    {
+        // $product_id  = $this->input->post('product_id');
+        // $this->pdct_rs->product_id = $product_id;
+        // $result = $this->pdct_rs->get_product_opt_by_id()->result_array();
+        
+        // $data = array();
+        // foreach ($result as $row) {
+        //     $data[] = array(
+        //         "id" => $row['product_id'],
+        //         "text" => $row['product_name_th']
+        //     );
+        // }
+        // echo json_encode($data);
+
+        $product_id = $this->input->post('product_id');
+        $this->pdct_rs->product_id = $product_id;
+        $result = $this->pdct_rs->get_product_opt_by_id()->result();
+
+        // $opt = '<option disabled="disabled">เลือกสินค้า</option>';
+        $opt='';
+
+            $selected = "";
+            foreach ($result as $row ) {
+                if ($row->product_id  == $product_id ) {
+                    $selected = "selected";
+                }else {
+                    $selected = "";
+                }
+                $opt .= '<option '. $selected .' value="'.$row->product_id.'">'.$row->product_name_th.'</option>';
+    
+            }
+
+        echo json_encode($opt);
+    }
+    // get_product_opt_by_id
 
 }

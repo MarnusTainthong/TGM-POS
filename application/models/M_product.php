@@ -40,6 +40,16 @@ class M_product extends Da_product {
     }
     // get product all to opt
 
+    public function get_product_opt_by_id()
+    {
+        $sql = "SELECT `product_id`, `product_name_th` 
+                FROM `product` 
+                WHERE `product_id` = ?";
+        $result = $this->db->query($sql,array($this->product_id));
+        return $result;
+    }
+    // get_product_opt_by_id
+
     public function get_product_opt_like($searchTerm="")
     {
         $sql = "SELECT product_id, product_name_th 
@@ -48,5 +58,6 @@ class M_product extends Da_product {
         $result = $this->db->query($sql);
         return $result;
     }
+    // get_product_opt_like search
 
 }

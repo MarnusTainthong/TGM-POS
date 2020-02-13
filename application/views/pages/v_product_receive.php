@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">จัดการคลังสินค้า</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo site_url().$this->config->item('ctrl_path').'/Pos_store/mange_store'; ?>">จัดการคลังสินค้า</a></li>
                         <li class="breadcrumb-item active">รับสินค้า</li>
                     </ol>
                 </div>
@@ -68,7 +68,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <button type="button" class="<?php echo ($this->config->item('btn_cancel')); ?>" onclick="reset_form('actionProductForm')"><?php echo ($this->config->item('txt_cancel')); ?></button>
+                        <button type="button" class="<?php echo ($this->config->item('btn_cancel')); ?>" onclick="reset_form('ProductReceiveForm'); opt_product_all();"><?php echo ($this->config->item('txt_cancel')); ?></button>
                         <button type="button" class="<?php echo ($this->config->item('btn_save')); ?> float-right submit" onclick="add_product_inv()"><?php echo ($this->config->item('txt_save')); ?></button>
                     </div>
                     <!-- /.card-footer -->
@@ -161,6 +161,11 @@ function validate() {
 // jQuery validate
 
 function opt_product_all() {
+    $("option:first").remove();
+    $('#inventory_lot').prop( "disabled", false );
+    $('#inventory_produce').prop( "disabled", false );
+    $('#inventory_exp').prop( "disabled", false );
+
 
     $('#inventory_product_name').select2({
         ajax: {
@@ -182,6 +187,7 @@ function opt_product_all() {
             width: "100%"
         },
         language: "th",
+        placeholder: "เลือกสินค้า",
     });
 }
 // opt category select2 can search
@@ -213,7 +219,7 @@ function add_product_inv() {
             dataType: "json",
             success: function(data) {
                 messege_show(data);
-                datatable_show();
+                datatableProductIn();
             } // End success
         }); // End ajax
     }
@@ -277,12 +283,33 @@ function add_product_qty(inventory_id) {
             dataType: "json",
             success: function(data) {
                 console.log(data);
-                
-                // messege_show(data);
-                // datatable_show();
+                $('#inventory_lot').val(data["inventory_lot"]);
+                $('#inventory_lot').prop( "disabled", true );
+                $('#inventory_produce').val(data["inventory_produce"]);
+                $('#inventory_produce').prop( "disabled", true );
+                $('#inventory_exp').val(data["inventory_exp"]);
+                $('#inventory_exp').prop( "disabled", true );
+                get_product_opt_select(data["inventory_product_id"])
+                $("#inventory_qty").focus();
             } // End success
         }); // End ajax
 }
 // add_product_qty
+
+function get_product_opt_select(product_id) {
+    $.ajax({
+        type : "POST",
+        url: '<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_product_opt_by_id/"; ?>',
+        data : {product_id:product_id},
+        dataType : "json",
+        success : function(data){
+            $("#inventory_product_name").html(data);
+            $("#inventory_product_name").select2({minimumResultsForSearch: Infinity,language: "th",width: '100%'});
+            $(".overlay").remove();
+        }
+    });
+    
+}
+// get_product_opt_select
 
 </script>
