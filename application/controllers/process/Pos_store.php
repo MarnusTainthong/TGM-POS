@@ -87,7 +87,11 @@ class Pos_store extends Login_Controller
     
     public function get_product_in()
     {
-        $result = $this->inv_rs->get_product_inventory()->result();
+        $invb_id = $this->input->post('invb_id');
+        // echo($invb_id);
+        // die;
+        $this->inv_rs->inventory_invb_id = $invb_id;
+        $result = $this->inv_rs->get_product_inventory_by_invb()->result();
         
         $all_data = array();
         $i = 1;

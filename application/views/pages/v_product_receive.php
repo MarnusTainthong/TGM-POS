@@ -275,6 +275,7 @@ function add_product_inv() {
 
 function datatableProductIn() {
     reset_form('ProductReceiveForm');
+    var invb_id = <?php echo($invb_id); ?>
 
     $("#productReceive_table").dataTable({
         processing: true,
@@ -283,6 +284,8 @@ function datatableProductIn() {
         ajax: {
             type: "POST",
             url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_product_in/"; ?>",
+            data: {invb_id: invb_id},
+            dataType: "json",
             dataSrc: function(data) {
                 var return_data = new Array();
                 $(data).each(function(seq, data) {
@@ -297,9 +300,9 @@ function datatableProductIn() {
                         "pdct_exp": data.pdct_exp,
                         "pdct_action": data.pdct_action
                     });
-                    $("#loading_datatables").remove();
                 });
                 console.log(return_data);
+                $("#loading_datatables").remove();
                 return return_data;
             } //end dataSrc
         }, //end ajax
