@@ -32,7 +32,7 @@ class Pos_store extends Login_Controller
     }
     // show product receive page
 
-    public function ajax_add_product_inv()
+    public function ajax_add_product_qty()
     {
         $inventory_id = $this->input->post('inventory_id');
         $inventory_product_id = $this->input->post('inventory_product_name');
@@ -84,6 +84,23 @@ class Pos_store extends Login_Controller
         echo json_encode($data);
     }
     // add&update product in inventory
+
+    public function ajax_del_product_qty()
+    {
+        $inventory_id = $this->input->post('inventory_id');
+        $this->inv_rs->inventory_id = $inventory_id;
+        $result = $this->inv_rs->delete_product_inventory();
+        
+        if ($this->db->trans_status() === FALSE){
+            $this->db->trans_rollback();
+            $data["action_status"] = 2;
+        }else{
+            $this->db->trans_commit();
+            $data["action_status"] = 1;
+        }
+        echo json_encode($data);
+    }
+    // ajax_del_product_qty
     
     public function get_product_in()
     {
@@ -110,7 +127,7 @@ class Pos_store extends Login_Controller
                 'pdct_action' => '<div class="'.$this->config->item('td_action').'">
                                 <button type="button" class="'.$this->config->item('btn_more_info').'" onclick="add_product_qty('.$row->inventory_id.')" '.$this->config->item('tooltip_add_qty').'><i class="'.$this->config->item('icon_add').'"></i></button>
                                 <button type="button" class="'.$this->config->item('btn_edit').'" onclick="edit_product_qty('.$row->inventory_id.')" '.$this->config->item('tooltip_edit').'><i class="'.$this->config->item('icon_edit').'"></i></button>
-                                <button type="button" class="'.$this->config->item('btn_delete').'" onclick="delete_product('.$row->inventory_id.')" '.$this->config->item('tooltip_delete').'><i class="'.$this->config->item('icon_delete').'"></i></button></div>',
+                                <button type="button" class="'.$this->config->item('btn_delete').'" onclick="delete_product_qty('.$row->inventory_id.')" '.$this->config->item('tooltip_delete').'><i class="'.$this->config->item('icon_delete').'"></i></button></div>',
             );
             array_push($all_data, $data);
         }

@@ -85,7 +85,7 @@
                     <!-- /.card-body -->
                     <div class="card-footer">
                         <button type="button" class="<?php echo ($this->config->item('btn_cancel')); ?>" onclick="reset_form('ProductReceiveForm'); opt_product_all();"><?php echo ($this->config->item('txt_cancel')); ?></button>
-                        <button type="button" class="<?php echo ($this->config->item('btn_save')); ?> float-right submit" onclick="add_product_inv()"><?php echo ($this->config->item('txt_save')); ?></button>
+                        <button type="button" class="<?php echo ($this->config->item('btn_save')); ?> float-right submit" onclick="save_product_qty()"><?php echo ($this->config->item('txt_save')); ?></button>
                     </div>
                     <!-- /.card-footer -->
                     </form>
@@ -235,7 +235,7 @@ function set_data() {
 }
 // set_data
 
-function add_product_inv() {
+function save_product_qty() {
 
     var frm_id = ProductReceiveForm;
     var invb_id = <?php echo($invb_id); ?>
@@ -252,7 +252,7 @@ function add_product_inv() {
 
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/ajax_add_product_inv/"; ?>",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/ajax_add_product_qty/"; ?>",
             data: {
                 inventory_id: inventory_id,
                 inventory_product_name: inventory_product_name,
@@ -271,7 +271,34 @@ function add_product_inv() {
     }
     // add&edit product
 }
-// add_product_inv
+// add_product_qty to db
+
+function delete_product_qty(inventory_id) {
+    swal.fire({
+    title: 'คุณต้องการลบข้อมูลใช่หรือไม่ ?',
+    text: "หากลบแล้วข้อมูลจะไม่สามารถกู้คืนได้อีก !",
+    type: 'warning',
+    confirmButtonText: '<?php echo $this->config->item('swal_cf_txt');?>',
+    cancelButtonText: '<?php echo $this->config->item('swal_cc_txt');?>',
+    showCancelButton: true,
+    reverseButtons: true,
+    confirmButtonColor: '#dc3545'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                type : "POST",
+                url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/ajax_del_product_qty/"; ?>",
+                data : {inventory_id:inventory_id},
+                dataType : "json",
+                success : function(data){
+                    datatableProductIn();
+                    messege_show(data);
+                }
+            });//end ajax
+        }
+    });
+}
+// delete_product_qty
 
 function datatableProductIn() {
     reset_form('ProductReceiveForm');
@@ -381,8 +408,9 @@ function get_product_opt_select(product_id) {
             $(".overlay").remove();
         }
     });
-    
 }
 // get_product_opt_select
+
+
 
 </script>

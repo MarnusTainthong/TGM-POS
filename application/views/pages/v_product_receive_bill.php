@@ -215,20 +215,20 @@ function delete_invb(invb_id) {
     showCancelButton: true,
     reverseButtons: true,
     confirmButtonColor: '#dc3545'
-}).then((result) => {
-    if (result.value) {
-        $.ajax({
-            type : "POST",
-            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/ajax_del_invb/"; ?>",
-            data : {invb_id:invb_id},
-            dataType : "json",
-            success : function(data){
-                datatable_show();
-                messege_show(data);
-            }
-        });//end ajax
-    }
-});
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                type : "POST",
+                url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/ajax_del_invb/"; ?>",
+                data : {invb_id:invb_id},
+                dataType : "json",
+                success : function(data){
+                    datatable_show();
+                    messege_show(data);
+                }
+            });//end ajax
+        }
+    });
 }
 
 </script>

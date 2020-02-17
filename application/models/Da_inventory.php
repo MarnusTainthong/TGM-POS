@@ -16,7 +16,7 @@ class Da_inventory extends Main_model {
                 VALUES (?, ?, ?, ?, ?, ?, 1)";
         $this->db->query($sql,array($this->inventory_product_id,$this->inventory_invb_id,$this->inventory_lot,$this->inventory_qty,$this->inventory_produce,$this->inventory_exp));
     }
-    // add product to inventory
+    // add product to inventory qty
 
     public function edit_product_inventory()
     {
@@ -26,5 +26,14 @@ class Da_inventory extends Main_model {
         $this->db->query($sql,array($this->inventory_lot,$this->inventory_qty,$this->inventory_produce,$this->inventory_exp,$this->inventory_id));
     }
     // edit_product_inventory
+
+    public function delete_product_inventory()
+    {
+        $sql = "UPDATE `inventory` 
+                SET `inventory_status` = 0 
+                WHERE `inventory`.`inventory_id` = ?";
+        $this->db->query($sql,array($this->inventory_id));
+    }
+    // delete_product_inventory qty
 
 }
