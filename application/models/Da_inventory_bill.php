@@ -26,6 +26,15 @@ class Da_inventory_bill extends Main_model {
         $this->db->query($sql,array($this->invb_responsible,$this->invb_id));
     }
     // edit bill resp
+    
+    public function delete_inv_bill()
+    {
+        $sql = "UPDATE `inventory_bill` 
+                SET `invb_status` = 0 
+                WHERE `inventory_bill`.`invb_id` = ?";
+        $this->db->query($sql,array($this->invb_id));
+    }
+    // delete_inv_bill
 
 
 }

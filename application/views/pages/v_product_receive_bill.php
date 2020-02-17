@@ -205,4 +205,30 @@ async function edit_resp_with_alert(invb_id,invb_resp) {
 }
 // edit_resp_with_alert
 
+function delete_invb(invb_id) {
+    swal.fire({
+    title: 'คุณต้องการลบข้อมูลใช่หรือไม่ ?',
+    text: "หากลบแล้วข้อมูลจะไม่สามารถกู้คืนได้อีก !",
+    type: 'warning',
+    confirmButtonText: '<?php echo $this->config->item('swal_cf_txt');?>',
+    cancelButtonText: '<?php echo $this->config->item('swal_cc_txt');?>',
+    showCancelButton: true,
+    reverseButtons: true,
+    confirmButtonColor: '#dc3545'
+}).then((result) => {
+    if (result.value) {
+        $.ajax({
+            type : "POST",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/ajax_del_invb/"; ?>",
+            data : {invb_id:invb_id},
+            dataType : "json",
+            success : function(data){
+                datatable_show();
+                messege_show(data);
+            }
+        });//end ajax
+    }
+});
+}
+
 </script>

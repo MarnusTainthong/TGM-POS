@@ -170,6 +170,23 @@ class Pos_store extends Login_Controller
     }
     // ajax_add_inv_bill
 
+    public function ajax_del_invb()
+    {
+        $invb_id = $this->input->post('invb_id');
+        $this->invb_rs->invb_id = $invb_id;
+        $result = $this->invb_rs->delete_inv_bill();
+        
+        if ($this->db->trans_status() === FALSE){
+            $this->db->trans_rollback();
+            $data["action_status"] = 2;
+        }else{
+            $this->db->trans_commit();
+            $data["action_status"] = 1;
+        }
+        echo json_encode($data);
+    }
+    // ajax_del_invb
+
     public function get_invb_show()
     {
         $result = $this->invb_rs->get_invb_data()->result();
@@ -186,7 +203,7 @@ class Pos_store extends Login_Controller
                 'invb_action'  => '<div class="'.$this->config->item('td_action').'">
                                     <a class="'.$this->config->item('btn_more_info').'" href="'.site_url().$this->config->item('ctrl_path').'/Pos_store/product_receive/'.$row->invb_id.'"'.$this->config->item('tooltip_add_data').'><i class="'.$this->config->item('icon_add').'"></i></a>
                                     <button type="button" class="'.$this->config->item('btn_edit').'" onclick="edit_resp('.$row->invb_id.')" '.$this->config->item('tooltip_edit').'><i class="'.$this->config->item('icon_edit').'"></i></button>
-                                    <button type="button" class="'.$this->config->item('btn_delete').'" onclick="delete_bill('.$row->invb_id.')" '.$this->config->item('tooltip_delete').'><i class="'.$this->config->item('icon_delete').'"></i></button></div>',
+                                    <button type="button" class="'.$this->config->item('btn_delete').'" onclick="delete_invb('.$row->invb_id.')" '.$this->config->item('tooltip_delete').'><i class="'.$this->config->item('icon_delete').'"></i></button></div>',
             );
             array_push($all_data, $data);
         }
@@ -208,4 +225,5 @@ class Pos_store extends Login_Controller
         $this->output($this->config->item('view_folder').'v_product_receive');
     }
     // product_receive
+
 }
