@@ -12,7 +12,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?php echo site_url().$this->config->item('ctrl_path').'/Pos_store/mange_store'; ?>">จัดการคลังสินค้า</a></li>
-                        <li class="breadcrumb-item active">รับสินค้า</li>
+                        <li class="breadcrumb-item"><a href="<?php echo site_url().$this->config->item('ctrl_path').'/Pos_store/product_receive_bill'; ?>">รับสินค้า</a></li>
+                        <li class="breadcrumb-item active">บันทึกผล</li>
                     </ol>
                 </div>
             </div>
@@ -21,7 +22,6 @@
 
     <!-- Main content -->
     <section class="content">
-
         <div class="row">
             <div class="col-md-7 col-sm-12 col-lg-4" id="div_save_product">
                 <!-- Default box -->

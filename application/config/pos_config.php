@@ -46,6 +46,7 @@ $config['tooltip_info'] = 'role="tooltip" data-microtip-size="fit" data-microtip
 $config['tooltip_have_barcode'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="สินค้ามีบาร์โค้ด"';
 $config['tooltip_no_barcode'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="สินค้าไม่มีมีบาร์โค้ด"';
 $config['tooltip_add_qty'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="บันทึกจำนวนสินค้า"';
+$config['tooltip_add_data'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="บันทึกข้อมูล"';
 
 // set table
 $config['td_action'] = 'td_action';

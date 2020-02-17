@@ -30,7 +30,7 @@
                     <div class="inner">
                         <h3>รับสินค้า</h3>
                     </div>
-                    <a href="<?php echo(site_url().$this->config->item('ctrl_path').'/Pos_store/product_receive/'); ?>" class="small-box-footer">
+                    <a href="<?php echo(site_url().$this->config->item('ctrl_path').'/Pos_store/product_receive_bill/'); ?>" class="small-box-footer">
                         บันทึกข้อมูล <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
