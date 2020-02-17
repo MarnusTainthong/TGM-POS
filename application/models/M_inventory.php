@@ -23,7 +23,7 @@ class M_inventory extends Da_inventory {
 
     public function get_inventory_by_id()
     {
-        $sql = "SELECT `inventory_product_id`, `inventory_lot`, `inventory_qty`, `inventory_produce`, `inventory_exp`
+        $sql = "SELECT `inventory_id`, `inventory_product_id`, `inventory_lot`, `inventory_qty`, `inventory_produce`, `inventory_exp`
                 FROM `inventory` 
                 WHERE inventory.inventory_id = ?";
         $result = $this->db->query($sql,array($this->inventory_id));

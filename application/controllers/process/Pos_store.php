@@ -35,7 +35,8 @@ class Pos_store extends Login_Controller
     public function ajax_add_product_inv()
     {
         $inventory_id = $this->input->post('inventory_id');
-        $inventory_product_name = $this->input->post('inventory_product_name');
+        $inventory_product_id = $this->input->post('inventory_product_name');
+        $invb_id = $this->input->post('invb_id');
         $inventory_lot = $this->input->post('inventory_lot');
         $inventory_qty = $this->input->post('inventory_qty');
         $inventory_produce = $this->input->post('inventory_produce');
@@ -44,7 +45,8 @@ class Pos_store extends Login_Controller
         if (empty($inventory_id)) {
             
             //ส่วน insert
-            $this->inv_rs->inventory_product_name = $inventory_product_name;
+            $this->inv_rs->inventory_product_id = $inventory_product_id;
+            $this->inv_rs->inventory_invb_id = $invb_id;
             $this->inv_rs->inventory_lot = $inventory_lot;
             $this->inv_rs->inventory_qty = $inventory_qty;
             $this->inv_rs->inventory_produce = $inventory_produce;
@@ -62,12 +64,11 @@ class Pos_store extends Login_Controller
         }else {
             // ส่วน edit
             $this->inv_rs->inventory_id = $inventory_id;
-            $this->inv_rs->inventory_product_name = $inventory_product_name;
             $this->inv_rs->inventory_lot = $inventory_lot;
             $this->inv_rs->inventory_qty = $inventory_qty;
             $this->inv_rs->inventory_produce = $inventory_produce;
             $this->inv_rs->inventory_exp = $inventory_exp;
-            $this->inv_rs->edit_product();
+            $this->inv_rs->edit_product_inventory();
             
             if ($this->db->trans_status() === false) {
                 $this->db->trans_rollback();
@@ -104,7 +105,7 @@ class Pos_store extends Login_Controller
                 'pdct_exp' => '<center>' . dateFormatTH2($row->inventory_exp) . '</center>',
                 'pdct_action' => '<div class="'.$this->config->item('td_action').'">
                                 <button type="button" class="'.$this->config->item('btn_more_info').'" onclick="add_product_qty('.$row->inventory_id.')" '.$this->config->item('tooltip_add_qty').'><i class="'.$this->config->item('icon_add').'"></i></button>
-                                <button type="button" class="'.$this->config->item('btn_edit').'" onclick="edit_product('.$row->inventory_id.')" '.$this->config->item('tooltip_edit').'><i class="'.$this->config->item('icon_edit').'"></i></button>
+                                <button type="button" class="'.$this->config->item('btn_edit').'" onclick="edit_product_qty('.$row->inventory_id.')" '.$this->config->item('tooltip_edit').'><i class="'.$this->config->item('icon_edit').'"></i></button>
                                 <button type="button" class="'.$this->config->item('btn_delete').'" onclick="delete_product('.$row->inventory_id.')" '.$this->config->item('tooltip_delete').'><i class="'.$this->config->item('icon_delete').'"></i></button></div>',
             );
             array_push($all_data, $data);
@@ -222,7 +223,8 @@ class Pos_store extends Login_Controller
 
     public function product_receive($invb_id)
     {
-        $this->output($this->config->item('view_folder').'v_product_receive');
+        $data["invb_id"] = $invb_id;
+        $this->output($this->config->item('view_folder').'v_product_receive',$data);
     }
     // product_receive
 

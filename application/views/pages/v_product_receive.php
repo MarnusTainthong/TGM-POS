@@ -22,6 +22,22 @@
 
     <!-- Main content -->
     <section class="content">
+
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-info"><i class="<?php echo($this->config->item('icon_user')); ?>"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text"><strong>ผู้ตรวจนับ</strong></span>
+                        <span class="info-box-text" id="span_resp_name">ชื่อชื่อ</span>
+                    </div>
+                </div>
+                <!-- ./info-box -->
+            </div>
+            <!-- ./col -->
+        </div>
+        <!-- ./row -->
+
         <div class="row">
             <div class="col-md-7 col-sm-12 col-lg-4" id="div_save_product">
                 <!-- Default box -->
@@ -74,6 +90,9 @@
                     <!-- /.card-footer -->
                     </form>
                     <!-- /.form -->
+                    <div class="overlay dark" id="loading_input">
+                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                    </div>
                 </div>
                 <!-- /.card -->
             </div>
@@ -107,7 +126,7 @@
                         <!-- table -->
                     </div>
                     <!-- /.card-body -->
-                    <div class="overlay dark">
+                    <div class="overlay dark" id="loading_datatables">
                         <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                     </div>
                 </div>
@@ -126,12 +145,12 @@
     <i class="fas fa-chevron-up"></i>
 </a>
 
+
 <script>
 $(document).ready(function() {
-
     validate();
-    opt_product_all();
-    datatableProductIn();
+    set_data();
+    
 });
 
 function validate() {
@@ -192,9 +211,31 @@ function opt_product_all() {
 }
 // opt category select2 can search
 
+function set_data() {
+
+    var invb_id = <?php echo($invb_id); ?>
+    
+    $.ajax({
+        type: "POST",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_invb_by_id/"; ?>",
+        data: {invb_id: invb_id},
+        dataType: "json",
+        success: function(data) {
+            console.log(data);
+            $('#span_resp_name').text(data['invb_responsible']);
+            opt_product_all();
+            $("#loading_input").remove();
+            datatableProductIn();
+        } // End success
+    }); // End ajax
+}
+// set_data
+
 function add_product_inv() {
 
     var frm_id = ProductReceiveForm;
+    var invb_id = <?php echo($invb_id); ?>
+    
 
     if ($(frm_id).valid()) {
 
@@ -214,7 +255,8 @@ function add_product_inv() {
                 inventory_lot: inventory_lot,
                 inventory_produce: inventory_produce,
                 inventory_exp: inventory_exp,
-                inventory_qty: inventory_qty
+                inventory_qty: inventory_qty,
+                invb_id:invb_id
             },
             dataType: "json",
             success: function(data) {
@@ -251,7 +293,7 @@ function datatableProductIn() {
                         "pdct_exp": data.pdct_exp,
                         "pdct_action": data.pdct_action
                     });
-                    $(".overlay").remove();
+                    $("#loading_datatables").remove();
                 });
                 console.log(return_data);
                 return return_data;
@@ -277,24 +319,48 @@ function datatableProductIn() {
 
 function add_product_qty(inventory_id) {
     $.ajax({
-            type: "POST",
-            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_inv_by_id/"; ?>",
-            data: {inventory_id: inventory_id},
-            dataType: "json",
-            success: function(data) {
-                console.log(data);
-                $('#inventory_lot').val(data["inventory_lot"]);
-                $('#inventory_lot').prop( "disabled", true );
-                $('#inventory_produce').val(data["inventory_produce"]);
-                $('#inventory_produce').prop( "disabled", true );
-                $('#inventory_exp').val(data["inventory_exp"]);
-                $('#inventory_exp').prop( "disabled", true );
-                get_product_opt_select(data["inventory_product_id"])
-                $("#inventory_qty").focus();
-            } // End success
-        }); // End ajax
+        type: "POST",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_inv_by_id/"; ?>",
+        data: {inventory_id: inventory_id},
+        dataType: "json",
+        success: function(data) {
+            console.log(data);
+            $('#inventory_id').val("");
+            $('#inventory_lot').val(data["inventory_lot"]);
+            $('#inventory_lot').prop( "disabled", true );
+            $('#inventory_produce').val(data["inventory_produce"]);
+            $('#inventory_produce').prop( "disabled", true );
+            $('#inventory_exp').val(data["inventory_exp"]);
+            $('#inventory_exp').prop( "disabled", true );
+            get_product_opt_select(data["inventory_product_id"])
+            $("#inventory_qty").focus();
+        } // End success
+    }); // End ajax
 }
 // add_product_qty
+
+function edit_product_qty(inventory_id) {
+    $.ajax({
+        type: "POST",
+        url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_inv_by_id/"; ?>",
+        data: {inventory_id: inventory_id},
+        dataType: "json",
+        success: function(data) {
+            console.log(data);
+            $('#inventory_id').val(data["inventory_id"]);
+            $('#inventory_lot').val(data["inventory_lot"]);
+            $('#inventory_lot').prop( "disabled", false );
+            $('#inventory_produce').val(data["inventory_produce"]);
+            $('#inventory_produce').prop( "disabled", false );
+            $('#inventory_exp').val(data["inventory_exp"]);
+            $('#inventory_exp').prop( "disabled", false );
+            get_product_opt_select(data["inventory_product_id"])
+            $('#inventory_qty').val(data["inventory_qty"]);
+            $("#inventory_qty").focus();
+        } // End success
+    }); // End ajax
+}
+// edit_product_qty
 
 function get_product_opt_select(product_id) {
     $.ajax({

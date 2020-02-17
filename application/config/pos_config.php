@@ -38,6 +38,7 @@ $config['icon_more_info'] = 'fas fa-search';
 $config['icon_check'] = 'fas fa-check';
 $config['icon_no_check'] = 'fas fa-times';
 $config['icon_add'] = 'fas fa-plus';
+$config['icon_user'] = 'fas fa-user';
 
 // tooltip
 $config['tooltip_edit'] = 'role="tooltip" data-microtip-size="fit" data-microtip-position="top" aria-label="คลิกเพื่อแก้ไขข้อมูล"';
