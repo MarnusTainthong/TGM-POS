@@ -60,4 +60,16 @@ class M_product extends Da_product {
     }
     // get_product_opt_like search
 
+    public function get_product_opt_like_without_use($searchTerm="")
+    {
+        $sql = "SELECT `product_id`, `product_name_th` 
+                FROM `product` 
+                WHERE `product_status` = 1 AND `product_id` NOT IN 
+                        (SELECT `inventory_product_id` FROM `inventory` WHERE `inventory_status` = 1 AND `inventory_invb_id` = ? GROUP BY `inventory_product_id`)
+                AND product_name_th LIKE '%".$searchTerm."%'";
+        $result = $this->db->query($sql,array($this->inventory_invb_id));
+        return $result;
+    }
+    // opt แสดงรายการสินค้าที่ยังไม่ได้เพิ่ม หน้ารับสินค้าเข้าคลัง
+
 }

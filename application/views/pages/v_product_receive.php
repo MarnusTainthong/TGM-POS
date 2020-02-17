@@ -185,16 +185,20 @@ function opt_product_all() {
     $('#inventory_produce').prop( "disabled", false );
     $('#inventory_exp').prop( "disabled", false );
 
+    var invb_id = <?php echo($invb_id); ?>
+
 
     $('#inventory_product_name').select2({
         ajax: {
             type: "POST",
             dataType: 'json',
-            url: '<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_product_opt/"; ?>',
+            // data: invb_id,
+            url: '<?php echo site_url().$this->config->item('ctrl_path')."/Pos_product/get_product_opt_not_use/"; ?>',
             // delay: 250,
             data: function(params) {
                 return {
-                    searchTerm: params.term // search term
+                    searchTerm: params.term, // search term
+                    invb_id
                 };
             },
             processResults: function(data) {

@@ -269,6 +269,8 @@ class Pos_product extends Login_Controller
     
     public function get_product_opt()
     {
+        $invb_id  = $this->input->post('invb_id');
+        // echo($invb_id); die;
         $searchTerm  = $this->input->post('searchTerm');
         $result = $this->pdct_rs->get_product_opt_like($searchTerm)->result_array();
         
@@ -282,6 +284,25 @@ class Pos_product extends Login_Controller
         echo json_encode($data);
     }
     // opt product all
+
+    public function get_product_opt_not_use()
+    {
+        $invb_id  = $this->input->post('invb_id');
+        $searchTerm  = $this->input->post('searchTerm');
+        $this->pdct_rs->inventory_invb_id = $invb_id;
+
+        $result = $this->pdct_rs->get_product_opt_like_without_use($searchTerm)->result_array();
+        
+        $data = array();
+        foreach ($result as $row) {
+            $data[] = array(
+                "id" => $row['product_id'],
+                "text" => $row['product_name_th']
+            );
+        }
+        echo json_encode($data);
+    }
+    // get_product_opt_not_use
 
     public function product_info($product_id="")
     {
