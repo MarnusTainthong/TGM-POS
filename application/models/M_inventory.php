@@ -36,4 +36,17 @@ class M_inventory extends Da_inventory {
         return $result;
     }
     // get_inventory_by_id
+
+    public function get_sum_product_qty()
+    {
+        $sql = "SELECT `product_id`,product.product_sku, `product_name_th`, `product_unit_id`,SUM(inventory.inventory_qty) AS 'sum_qty', unit.unit_name_th, unit.unit_name_en
+                FROM `product`
+                LEFT JOIN inventory ON product.product_id = inventory.inventory_product_id
+                LEFT JOIN unit ON product.product_unit_id = unit.unit_id
+                WHERE product.product_status = 1 AND inventory.inventory_status = 1 OR inventory.inventory_status IS NULL
+                GROUP BY product.product_id";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    // get_sum_product_qty
 }

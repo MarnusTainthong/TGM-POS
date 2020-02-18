@@ -255,4 +255,39 @@ class Pos_store extends Login_Controller
     }
     // product_deliver_bill
 
+    public function get_inventory_sum_qty()
+    {
+        $result = $this->inv_rs->get_sum_product_qty()->result();
+
+        // pre($result);
+        
+        $all_data = array();
+        $i = 1;
+        foreach ($result as $row) {
+            
+            if (empty($row->sum_qty)) {
+                $data = array(
+                    'inv_seq'       => '<center>' . $i++ . '</center>',
+                    'inv_pdct_sku'  => '<center>' . $row->product_sku . '</center>',
+                    'inv_pdct_name' => $row->product_name_th,
+                    'inv_pdct_qty'  => '<center> 0 </center>',
+                    'inv_pdct_unit' => '<center>' . $row->unit_name_th . '</center>',
+                    'inv_action'    => '<center><span class="badge badge-success">Shipped</span></center>',
+                );
+            }else {
+                $data = array(
+                    'inv_seq'       => '<center>' . $i++ . '</center>',
+                    'inv_pdct_sku'  => '<center>' . $row->product_sku . '</center>',
+                    'inv_pdct_name' => $row->product_name_th,
+                    'inv_pdct_qty'  => '<center>' . $row->sum_qty . '</center>',
+                    'inv_pdct_unit' => '<center>' . $row->unit_name_th . '</center>',
+                    'inv_action'    => '<center><span class="badge badge-success">Shipped</span></center>',
+                );
+            }
+            // check qty null
+            array_push($all_data, $data);
+        }
+       echo json_encode($all_data);
+    }
+
 }

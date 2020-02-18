@@ -63,7 +63,7 @@
                     <div class="card-body">
                         <!-- body -->
 
-                        <table id="product_table" class="table table-bordered table-striped dataTable table-responsive" cellspacing="0">
+                        <table id="product_sum_qty_table" class="table table-bordered table-striped dataTable table-responsive" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th width="5%">#</th>
@@ -71,10 +71,7 @@
                                     <th width="20%">ชื่อสินค้า</th>
                                     <th width="10%">จำนวนคงเหลือ</th>
                                     <th width="10%">หน่วยนับ</th>
-                                    <th width="5%">เลข Lot</th>
-                                    <th width="10%">วันผลิต</th>
-                                    <th width="10%">วันหมดอายุ</th>
-                                    <th width="15%">ดำเนินการ</th>
+                                    <th width="15%">สถานะ</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -100,6 +97,47 @@
 
 <script>
 $(document).ready(function() {
-
+    datatable_show();
 });
+
+function datatable_show() {
+
+    $("#product_sum_qty_table").dataTable({
+        processing: true,
+        bDestroy: true,
+        language: {url: "<?php echo base_url().$this->config->item('template_path').'plugins/datatables/languages/Thai.json'?>"},
+        ajax: {
+            type: "POST",
+            url: "<?php echo site_url().$this->config->item('ctrl_path')."/Pos_store/get_inventory_sum_qty/"; ?>",
+            dataSrc: function(data) {
+                var return_data = new Array();
+                $(data).each(function(seq, data) {
+                    return_data.push({
+                        "inv_seq": data.inv_seq,
+                        "inv_pdct_sku": data.inv_pdct_sku,
+                        "inv_pdct_name": data.inv_pdct_name,
+                        "inv_pdct_qty": data.inv_pdct_qty,
+                        "inv_pdct_unit": data.inv_pdct_unit,
+                        "inv_action": data.inv_action
+                    });
+                    $(".overlay").remove();
+                });
+                console.log(return_data);
+                return return_data;
+            } //end dataSrc
+        }, //end ajax
+        columns: [
+            {data: "inv_seq"},
+            {data: "inv_pdct_sku"},
+            {data: "inv_pdct_name"},
+            {data: "inv_pdct_qty"},
+            {data: "inv_pdct_unit"},
+            {data: "inv_action"}
+        ],
+        columnDefs: [
+            { orderable: false, targets: [1,2,3,4,5] }
+        ]
+    });
+
+}
 </script>
