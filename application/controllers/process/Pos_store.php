@@ -248,5 +248,11 @@ class Pos_store extends Login_Controller
         $this->output($this->config->item('view_folder').'v_product_receive',$data);
     }
     // product_receive
+    
+    public function product_deliver_bill()
+    {
+        $this->output($this->config->item('view_folder').'v_product_deliver_bill');
+    }
+    // product_deliver_bill
 
 }
