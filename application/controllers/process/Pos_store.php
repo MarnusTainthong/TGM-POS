@@ -289,5 +289,6 @@ class Pos_store extends Login_Controller
         }
        echo json_encode($all_data);
     }
+    // get_inventory_sum_qty
 
 }

@@ -28,7 +28,7 @@
 
 
 		  <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo site_url().$this->config->item('ctrl_path').'/Pos_sales/sales_page'; ?>" class="nav-link">
 			  <i class="nav-icon fas fa-shopping-cart"></i>
               <p>
                 ขายหน้าร้าน
