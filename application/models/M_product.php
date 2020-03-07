@@ -71,5 +71,28 @@ class M_product extends Da_product {
         return $result;
     }
     // opt แสดงรายการสินค้าที่ยังไม่ได้เพิ่ม หน้ารับสินค้าเข้าคลัง
+    
+    public function get_product_opt_sale($searchTerm="")
+    {
+        $this->db->select('product_id, product_name_th, product_sku, product_barcode, product_retail_price, product_unit_id, unit.unit_name_th');
+        $this->db->from('product');
+        $this->db->join('unit', 'product.product_unit_id = unit.unit_id', 'left');
+        $this->db->where('product.product_status', 1);
+        $this->db->like('product.product_name_th', $searchTerm);
+        $this->db->or_like('product.product_barcode', $searchTerm);
+        return $this->db->get();
+    }
+    // get_product_opt_sale
+    // search รายการสินค้าให้เลือกตอนทำการขาย 
+    
+    public function get_product_by_id_with_unit($product_id="")
+    {
+        $this->db->select('product_id, product_name_th, product_retail_price, product_unit_id, unit.unit_name_th');
+        $this->db->from('product');
+        $this->db->join('unit', 'product.product_unit_id = unit.unit_id', 'left');
+        $this->db->where('product.product_id', $product_id);
+        return $this->db->get();
+    }
+    // get_product_by_id_with_unit
 
 }

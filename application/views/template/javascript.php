@@ -1,5 +1,8 @@
 <!-- jQuery -->
 <script src="<?php echo base_url().$this->config->item('template_path').'plugins/jquery/jquery.min.js'?>"></script>
+<!-- JQuery UI -->
+<script src="<?php echo base_url().$this->config->item('template_path').'plugins/jquery-ui/jquery-ui.min.js'?>"></script>
+
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url().$this->config->item('template_path').'plugins/bootstrap/js/bootstrap.bundle.min.js'?>"></script>
 <!-- AdminLTE App -->

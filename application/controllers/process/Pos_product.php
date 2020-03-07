@@ -348,4 +348,39 @@ class Pos_product extends Login_Controller
     }
     // get_product_opt_by_id
 
+    public function get_prodect_opt_sale()
+    {
+        $searchTerm = $this->input->get('term');
+        
+        $result = $this->pdct_rs->get_product_opt_sale($searchTerm)->result_array();
+        
+        $returnData = array();
+
+        if (!empty($result)) {
+            foreach ($result as $row) {
+                
+                $data['id'] = $row['product_id'];
+                $data['value'] = $row['product_name_th'].' ('.$row['unit_name_th'].')';
+                array_push($returnData, $data);
+            }
+        }else {
+            
+            $data['id'] = -1;
+            $data['value'] = 'ไม่พบข้อมูล..กรุณาลองใหม่';
+            
+            array_push($returnData, $data);
+        }
+        // else
+        
+        echo json_encode($returnData);
+    }
+    // get_prodect_opt_sale
+    
+    public function get_product_to_cart()
+    {
+        $product_id = $this->input->post('product_id');
+        $result = $this->pdct_rs->get_product_by_id_with_unit($product_id)->row_array();
+        echo json_encode($result);
+    }
+
 }

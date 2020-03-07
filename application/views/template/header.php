@@ -26,6 +26,8 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url().$this->config->item('template_path').'plugins/microtip/microtip.min.css';?>"/>
   <!-- selector2 -->
   <link rel="stylesheet" type="text/css" href="<?php echo base_url().$this->config->item('template_path').'plugins/select2/css/select2.min.css';?>"/>
+  <!-- JQuery UI -->
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url().$this->config->item('template_path').'plugins/jquery-ui/jquery-ui.min.css';?>"/>
 
 
 </head>
