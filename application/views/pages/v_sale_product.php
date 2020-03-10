@@ -132,11 +132,11 @@ $(document).ready(function() {
     });
     // autocomplete
     check_data_empty();
-
-    // $('#product_table tbody tr').each(function(index, tr) {
-    //     console.log(index);
-    //     console.log(tr);
-    // });
+    
+    $("#sale_qty").focus(function (e) { 
+        alert('focus');
+        
+    });
 
 });
 
@@ -148,56 +148,41 @@ function add_item(product_id) {
         data: {product_id : product_id},
         dataType: "JSON",
         success: function (response) {
-            // console.log(response);      
 
             $("#select_product_show").val("");
             $("#select_product_show").focus();
              
 
-            // $("#tr_nodata").remove();   
             if ($("#product_table tbody tr").is('#tr_nodata')) {
-                // console.log('first_data');
                 
                 var html = '<tr>';
                     html += '<td>'+'1.'+'</td>';
                     html += '<td style="display:none;">'+response['product_id']+'</td>';
                     html += '<td>'+response['product_name_th']+'</td>';
-                    html += '<td id="sale_qty" contenteditable>'+'1'+'</td>';
+                    html += '<td id="sale_qty" contenteditable onblur="change_qty('+response['product_id']+')">'+'1'+'</td>';
                     html += '<td><center>'+response['unit_name_th']+'</center></td>';
                     html += '<td><center><span class="badge bg-success" id="price_sale">'+response['product_retail_price']+'</span></center></td>';
                     html += '<td><center><span class="badge bg-primary" id="price_total">'+response['product_retail_price']+'</span></center></td>';
-                    html += '<td><center>'+'a'+'</center></td>';
+                    html += '<td><center><span class="badge badge-success" onclick="increase_qty('+response['product_id']+')"><i class="<?php echo($this->config->item('icon_increase')); ?>"></i></span> '+
+                                        '<span class="badge badge-warning" onclick="decrease_qty('+response['product_id']+')"><i class="<?php echo($this->config->item('icon_decrease')); ?>"></i></span> '+
+                                        '<span class="badge badge-danger" onclick="delete_item('+response['product_id']+')"><i class="<?php echo($this->config->item('icon_delete')); ?>"></i></span></center></td>';
                     html += '</tr>';
 
                 $("#product_table tbody:last-child").html(html);
             }else{
-                // console.log('not first');
-
                 var found_data = false;
-                
 
                 $('#product_table tbody tr').each(function(index, tr) {
     
-                    
                     var product_id = $(this).find("td").eq(1).html(); 
-                    
-                    console.log(product_id,response['product_id']);
-    
-                    // console.log(index);
-                    // console.log(tr);
 
                     if (response['product_id'] == product_id) {
-                        // console.log($(this).find("td").eq(1).html());
-                        // console.log($(this));
                         var value_qty = $(this).find("td").eq(3).html();
-                        // console.log(value_qty);
-                        // console.log(typeof(value_qty));
-                        // console.log(parseInt(value_qty)+1);
-                        value_qty = parseInt(value_qty)+1;
+                        value_qty = parseFloat(value_qty)+1;
                         $(this).find("td").eq(3).html(value_qty);
                         
                         var value_sale = $(this).find("#price_sale").text();
-                        value_sale = parseInt(value_sale);
+                        value_sale = parseFloat(value_sale);
                         var value_total = value_qty*value_sale;
                         $(this).find("#price_total").text(value_total);
                         found_data = true;
@@ -212,19 +197,18 @@ function add_item(product_id) {
                             '<td>'+set_number()+'</td>'+
                             '<td style="display:none;">'+response['product_id']+'</td>'+
                             '<td>'+response['product_name_th']+'</td>'+
-                            '<td id="sale_qty" contenteditable>'+'1'+'</td>'+
+                            '<td id="sale_qty" contenteditable onblur="change_qty('+response['product_id']+')">'+'1'+'</td>'+
                             '<td><center>'+response['unit_name_th']+'</center></td>'+
                             '<td><center><span class="badge bg-success" id="price_sale">'+response['product_retail_price']+'</span></center></td>'+
                             '<td><center><span class="badge bg-primary" id="price_total">'+response['product_retail_price']+'</span></center></td>'+
-                            '<td><center>'+'a'+'</center></td>'+
+                            '<td><center><span class="badge badge-success" onclick="increase_qty('+response['product_id']+')"><i class="<?php echo($this->config->item('icon_increase')); ?>"></i></span> '+
+                                        '<span class="badge badge-warning" onclick="decrease_qty('+response['product_id']+')"><i class="<?php echo($this->config->item('icon_decrease')); ?>"></i></span> '+
+                                        '<span class="badge badge-danger" onclick="delete_item('+response['product_id']+')"><i class="<?php echo($this->config->item('icon_delete')); ?>"></i></span></center></td>'+
                         '</tr>'
                     );
                 }
 
             }
-
-            // console.log($("#product_table tbody tr"));
-
         }
     });
 }
@@ -247,6 +231,109 @@ function check_data_empty() {
         );
     }
 }
+// check_data_empty
+
+function increase_qty(product_id) {
+    $('#product_table tbody tr').each(function(index, tr) {
+        var product_id_set = $(this).find("td").eq(1).html(); 
+
+        if (product_id == product_id_set) {
+            var value_qty = $(this).find("td").eq(3).html();
+            value_qty = parseFloat(value_qty)+1;
+            $(this).find("td").eq(3).html(value_qty);
+            
+            var value_sale = $(this).find("#price_sale").text();
+            value_sale = parseFloat(value_sale);
+            var value_total = value_qty*value_sale;
+            $(this).find("#price_total").text(value_total);
+
+        }
+
+    });
+}
+// increase_qty
+
+function decrease_qty(product_id) {
+    $('#product_table tbody tr').each(function(index, tr) {
+        var product_id_set = $(this).find("td").eq(1).html(); 
+
+        if (product_id == product_id_set) {
+            var value_qty = $(this).find("td").eq(3).html();
+            value_qty = parseFloat(value_qty)-1;
+            $(this).find("td").eq(3).html(value_qty);
+            
+            var value_sale = $(this).find("#price_sale").text();
+            value_sale = parseFloat(value_sale);
+            var value_total = value_qty*value_sale;
+            $(this).find("#price_total").text(value_total);
+
+            if (parseFloat(value_qty) < 1) {
+                value_qty = 0;
+                $(this).find("td").eq(3).html(value_qty);
+                $(this).find("#price_total").text(value_qty);
+                console.log("call del fn");
+            }
+            // ถ้า <= 1 เรียก fn del
+
+        }
+
+    });
+}
+// decrease_qty
+
+function change_qty(product_id) {
+    $('#product_table tbody tr').each(function(index, tr) {
+        var product_id_set = $(this).find("td").eq(1).html(); 
+
+        if (product_id == product_id_set) {
+            var value_qty = $(this).find("td").eq(3).html();
+
+            if ($.isNumeric(value_qty)) {
+                if (parseFloat(value_qty) == 0) {
+                    console.log("call del fn");
+                }else if (parseFloat(value_qty) <= 0) {
+                    console.log("less than 0");
+                    value_qty = 1.0;
+                }
+                // ตรวจสอบค่าต่ำกว่าหรือเท่ากับ 0
+            }else {
+                value_qty = 1.0;
+            }
+            // ใช่ตัวเลขหรือไม่
+            value_qty = parseFloat(value_qty);
+            $(this).find("td").eq(3).html(value_qty);
+            
+            var value_sale = $(this).find("#price_sale").text();
+            value_sale = parseFloat(value_sale);
+            var value_total = value_qty*value_sale;
+            $(this).find("#price_total").text(value_total);
+
+        }
+
+    });
+}
+// change_qty
+
+function delete_item(product_id) {
+    var num_row = 1;
+    $('#product_table tbody tr').each(function(index, tr) {
+    
+        var product_id_check = $(this).find("td").eq(1).html(); 
+
+        if (product_id == product_id_check) {
+            $(tr).remove();
+        }
+        // check tr ที่จะลบ
+
+    });
+    $('#product_table tbody tr').each(function(index, tr) {
+    
+        $(this).find("td").eq(0).html(num_row); 
+        num_row++;
+
+    });
+}
+// delete_item
 
 </script>
 

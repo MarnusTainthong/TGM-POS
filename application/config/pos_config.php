@@ -24,6 +24,7 @@ $config['btn_delete'] = 'btn btn-danger';
 $config['btn_more_info'] = 'btn btn-primary';
 $config['btn_true'] = 'btn btn-success';
 $config['btn_false'] = 'btn btn-danger';
+$config['btn_add'] = 'btn btn-success';
 
 // set text
 $config['txt_cancel'] = 'ยกเลิก';
@@ -38,6 +39,8 @@ $config['icon_more_info'] = 'fas fa-search';
 $config['icon_check'] = 'fas fa-check';
 $config['icon_no_check'] = 'fas fa-times';
 $config['icon_add'] = 'fas fa-plus';
+$config['icon_increase'] = 'fas fa-plus';
+$config['icon_decrease'] = 'fas fa-minus';
 $config['icon_user'] = 'fas fa-user';
 
 // tooltip
