@@ -69,11 +69,11 @@
                         <h3><b>ยอดรวม</b></h3>
                     </span>
                     <div class="info-box-content">
-                        <span class="info-box-number mt-2" id="text_total_price">
-                            <h1><b>
-                                    <center>163,921</center>
-                                </b></h1>
-                        </span>
+                        <h1><center><b>
+                            <span class="info-box-number mt-2" id="text_total_price">
+                                -
+                            </span>
+                        </b></center></h1>
                     </div>
                     <span class="info-box-icon"><i class="fas fa-money-bill-wave"></i></span>
                     <!-- /.info-box-content -->
@@ -209,6 +209,7 @@ function add_item(product_id) {
                 }
 
             }
+            sum_total();
         }
     });
 }
@@ -250,6 +251,7 @@ function increase_qty(product_id) {
         }
 
     });
+    sum_total();
 }
 // increase_qty
 
@@ -271,13 +273,14 @@ function decrease_qty(product_id) {
                 value_qty = 0;
                 $(this).find("td").eq(3).html(value_qty);
                 $(this).find("#price_total").text(value_qty);
-                console.log("call del fn");
+                delete_item(product_id);
             }
             // ถ้า <= 1 เรียก fn del
 
         }
 
     });
+    sum_total();
 }
 // decrease_qty
 
@@ -289,11 +292,8 @@ function change_qty(product_id) {
             var value_qty = $(this).find("td").eq(3).html();
 
             if ($.isNumeric(value_qty)) {
-                if (parseFloat(value_qty) == 0) {
-                    console.log("call del fn");
-                }else if (parseFloat(value_qty) <= 0) {
-                    console.log("less than 0");
-                    value_qty = 1.0;
+                if (parseFloat(value_qty) <= 0) {
+                    delete_item(product_id);
                 }
                 // ตรวจสอบค่าต่ำกว่าหรือเท่ากับ 0
             }else {
@@ -311,6 +311,7 @@ function change_qty(product_id) {
         }
 
     });
+    sum_total();
 }
 // change_qty
 
@@ -332,8 +333,29 @@ function delete_item(product_id) {
         num_row++;
 
     });
+    sum_total();
+
 }
 // delete_item
+
+function sum_total() {
+    tr_length = $("#product_table tbody tr").length;
+    
+    var price_total = parseFloat(0);
+    if (tr_length < 1) {
+        price_total = 0;
+    }else{
+        $('#product_table tbody tr').each(function(index, tr) {
+        
+            price_total += parseFloat($(this).find("#price_total").text());
+    
+        });
+    }
+    
+    $("#text_total_price").text(price_total);
+    $("#text_total_price").digits();
+}
+// sum_total
 
 </script>
 

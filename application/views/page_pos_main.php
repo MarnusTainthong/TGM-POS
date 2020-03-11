@@ -40,6 +40,15 @@ function messege_show(state) {
     // 4 = แก้ไข ไม่สำเร็จ
 
 }
+// messege_show
+
+$.fn.digits = function(){ 
+    return this.each(function(){ 
+        $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
+    })
+}
+// เติม comma ให้ตัวเลข
+
 </script>
 
 <style>
