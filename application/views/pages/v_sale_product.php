@@ -82,22 +82,31 @@
 
                 <div class="card card-outline card-danger">
                     <div class="card-body">
-                        <div class="form-group row">
-                            <label for="inputBillno" class="col-sm-4 col-form-label">เลขที่บิล</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="bill_no" placeholder="เลขที่บิล">
+                        <form>
+                            <div class="form-group row">
+                                <label for="inputBillno" class="col-sm-4 col-form-label">เลขที่บิล</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="bill_no" placeholder="เลขที่บิล" disabled>
+                                </div>
                             </div>
-                        </div>
-                        <!-- ./row -->
+                            <!-- ./row -->
 
-                        <div class="form-group row">
-                            <label for="inputSaleTime" class="col-sm-4 col-form-label">เวลาทำการขาย</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="inputSaleTime" placeholder="เวลาทำการขาย" disabled>
+                            <div class="form-group row">
+                                <label for="inputSaleTime" class="col-sm-4 col-form-label">เวลาทำการขาย</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="inputSaleTime" placeholder="เวลาทำการขาย" disabled>
+                                </div>
                             </div>
-                        </div>
-                        <!-- ./row -->
+                            <!-- ./row -->
 
+                            <div class="form-group row">
+                                <label for="inputSeller" class="col-sm-4 col-form-label">ผู้ขาย</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="inputSeller" placeholder="ผู้ขาย" disabled>
+                                </div>
+                            </div>
+                            <!-- ./row -->
+                        </form>
                     </div>
                     <!-- ./card-body -->
                 </div>
@@ -334,7 +343,7 @@ function delete_item(product_id) {
 
     });
     sum_total();
-
+    check_data_empty();
 }
 // delete_item
 
